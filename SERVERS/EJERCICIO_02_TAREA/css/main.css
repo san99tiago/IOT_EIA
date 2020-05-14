@@ -1,0 +1,80 @@
+/* ESTILOS PARA IR COMENZANDO A MEJORAR ESTILOS DE LA PAGINA */
+/* SANTIAGO GARCIA ARANGO */
+
+/* CSS BASICOS DE ESTILO PRINCIPAL DE LOS ELEMENTOS */
+body {
+    background-color: lightcyan;
+}
+h1 {
+    background-color: #00DDFF;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    font-family: 'Bangers', cursive;
+}
+
+h3 {
+    background-color: #419DFF;
+    text-align: center;
+
+}
+
+p {
+    text-align: justify;
+
+}
+h4 , h2 {
+    text-align: center;
+}
+h5{
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+img {
+    width: 100%;
+}
+table {
+    border: 1px solid black;
+}
+th {
+    border: 2px solid black;
+    background-color: mediumaquamarine;
+    text-align: center;
+}
+td {
+    border: 1px solid black;
+    background-color: white;
+
+}
+button {
+    background-color: lightgreen;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+}
+input {
+    margin-right: 10px;
+}
+hr {
+    border: 1px solid black;
+}
+
+.fondo-preguntas{
+    background-color: mediumturquoise;
+}
+.espacio-izq{
+    margin-left: 30px;
+}
+
+/* CSS PARA CREACION AUXILIAR DE LAS ANIMACIONES REQUERIDAS Y "DELAYS" */
+.agregar-delay-1 {
+    animation-delay: 1s;
+}
+
+.agregar-delay-2 {
+    animation-delay: 2s;
+}
+
+
