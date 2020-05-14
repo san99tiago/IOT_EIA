@@ -1,0 +1,59 @@
+-----------------------ACLARACIONES SOBRE NUESTRO SERVIDOR----------------------------
+El objetivo de este serrvidor es poder entender los conceptos basicos y las relaciones
+mas simples entre el backend y frontend a traves de NODEJS y otras dependencias.
+
+La funcionalidad tendra entonces una pagina principal para el login, la cual se conectara
+con una base de datos de MySQL y permitira acceder solamente a usuarios permitidos.
+
+Del mismo modo, se agrega capacidad de procesar GET y POST enfocados a dispositivos IOT,
+para este caso lo haremos a traves de modulos ESP8266-01 (esta parte es opcional para
+jugar con servidor, pero NO es indispensable para que funcione (un plus) )
+
+
+--------------------------------NODEJS------------------------------------------------
+Utilizamos NODEJS para poder correr y conectar correctamente los scripts ".js" localmente.
+Para inicializar el servidor, comenzamos con:
+>>npm init   (y esto genera el archivo "package.json" para organizar modulos y dependencias)
+
+
+---------------------------------SERVIDOR PRINCIPAL-----------------------------------
+El archivo "main" para el funcionamiento del servidor es "index.js", en este se realizan
+todas las conexiones con las dependencias para que el servidor funcione correctamente.
+
+
+
+-------------------------------DEPENDENCIAS-------------------------------------------
+Utilizaremos varias dependencias en nuestro servidor:
+
+1. < EXPRESS >
+    Express es un package de gran ayuda para el desarrollo  de servidores, el cual nos 
+    facilita muchos aspectos a lo largo del servidor, como peticioones, manejo de errores,
+    conexiones mas sencillas, etc.
+
+    Para instalarlo lo hacemos con el NODE PACKAGE MANAGER (npm)
+    >>npm install express 
+
+
+2. < MYSQL >
+    Trabajaremos con bases de datos de MySQL para conectar correctamente el servidor con
+    una serie de tablas encargadas del manejo de info de los usuarios.
+    Nota: se debe tener correctamente insalado Mysql en PC (MySQL Workbench)
+    Nota: verificar correcta conexion con usuario, contrasenna y Base de Datos correcta
+    Nota: verificar que se tenga "service" de Mysql corriendo en PC ("services"-->"Mysql80"-->"start"s)
+
+    Para instalar la conexion con Mysql, lo haremos con NPM:
+    >>npm install mysql
+
+
+3. <JQUERY Y JQUERY-EASING>
+    Como Jquery estuvo poniendo problema para instalarlo como paquete de NPM, entonces
+    debemos agregar las carpetas en "public".
+    Para activar correcta funcionalidad, se deben activar desde HTML (ver login.html)
+    Para procesar la info, lo hacemos desde "login.js" (a traves de Jquery)
+
+
+
+
+
+
+
