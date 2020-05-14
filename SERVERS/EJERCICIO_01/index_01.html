@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos conexion con archivo tipo ".js" para procesar info-->
+        <script src="js/main.js"></script>
+
+
+        <title>SANTI IOT 01</title>
+    </head>
+    <body>
+
+        <h1>EMPEZANDO A COMBINAR HTML+CSS+JS: EJERCICIO IOT 01</h1>
+
+        <!-- Creamos division con formato "row" para indicarlo como "fila" -->
+        <!-- Luego, indicamos cada seccion de espacio segun el tamanno (ya sea largo o pequenno) -->
+        <!-- Recordar que las columnas con bootstrap tienen total de 12 espacios propios -->
+        <div class="row">
+                <div class ="col-3">
+                    <!-- Agregamos imagen en carpeta "imgs" para darle mas estilo a la pagina -->
+                    <img src="imgs/FOTO_RICK.png">
+                </div>
+                <div class ="col-9">
+                    <h3>MI PRIMER ARCHIVO CON BACKEND CON JS</h3>
+                    <p>A continuacion mostraremos un desarrollo sencillo de conexion entre "js" y HTML-CSS...</p>
+                    <p>Ingrese sus datos:</p>
+                    <br>
+                    <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+                    Ingrese nombre:
+                    <input type="text" id="nombre" placeholder="Nombre">
+                    Ingrese apellido:
+                    <input type="text" id="apellido" placeholder="Apellido">
+                    Ingrese edad:
+                    <input type="number" id="edad" placeholder="Edad">
+                    <!-- OJO: con botones, existe evento llamado "onclick" para procesarlos en backend -->
+                    <button onclick="procesar_datos()">Actualizar datos</button>
+                    <hr>
+
+
+                    <!-- Ahora crearemos la seccion en donde crearemos la tabla de los datos ingresados -->
+                    <!-- Como NO quiero que empiece inmediatamente, creare un <div> para separarlos segun "row" -->
+                    <!-- Por lo tanto habra 1/12 del espacio total en blanco y luego tabla tendra 10/12 (orden) -->
+                    <!-- Estas funcionalidades se pueden repasar aprendiendo los "layouts" de Bootstrap (recordar importarlo) -->
+                    <div class="row col-12">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <!-- Obligamos tabla a ser maximo tamanno (osea col-12 siguiendo con el formato en bootstrap) -->
+                            <table class="col-12">
+                                <tr>
+                                    <!--Creamos header de la tabla-->
+                                    <th>NOMBRE</th>
+                                    <th>APELLIDO</th>
+                                    <th>EDAD</th>
+                                </tr>
+    
+                                <tr>
+                                    <!-- Creamos datos de la tabla con id especifico para programarlo con archivo "JS" -->
+                                    <td id="li1"></td>
+                                    <td id="li2"></td>
+                                    <td id="li3"></td>
+    
+                                </tr>
+    
+    
+                            </table>
+                        </div>                    </div>
+
+
+
+
+                </div>  
+
+        </div>
+
+        <br>
+        <!-- Otra ayuda de Bootstrap es crear "contenedores" y estilarlos tipo "alertas" (ayuda a generar estilo bacano) -->
+        <div class="container col-12">
+            <div class="alert alert-secondary" role="alert">
+                <h4>¡SANTIAGO!... ¡Cada vez vas teniendo más elementos para hacer grandes proyectos!</h4>
+            </div>
+        </div>
+
+
+    </body>
+</html>
