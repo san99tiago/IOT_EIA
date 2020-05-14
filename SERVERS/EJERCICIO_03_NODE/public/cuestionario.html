@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO, ABRIL 2020 -->
+<!-- Utilizaremos archivo HTML de tarea para mostrar funcionalidad-->
+<!-- CODIGO HTML PARA TAREA 1 DE IOT (ENCARGADA DE CREAR FORMULARIO SENCILLO INTERACTIVO) -->
+<!-- Se debe responder formulario, ingresar datos de la persona, y mostrar resultados en tabla -->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+        <!-- Agregamos conexion con archivo tipo ".js" para procesar info-->
+        <script src="js/main.js"></script>
+
+
+        <title>SANTI TAREA IOT</title>
+    </head>
+    <body>
+
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="col-12 animated  bounceInLeft">TAREA 1 IOT : COMIENZOS DESARROLLO WEB <br>Santiago García Arango , Abril 2020</h1>
+
+
+        <!-- Ahora crearemos un contenedor que tendra 2 grandes columnas principales, divididas en 2 filas -->
+        <!-- Algo similar a esto (dos grandes columnas, donde la primera ocupe menos que la segunda)
+            -------------------------------------------------------------------------------------------------
+            |                       |                                                                       |
+            |                       |                                                                       |
+            |                       |                                                                       |
+            -------------------------------------------------------------------------------------------------
+        -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid">
+
+            <!-- Creamos division con formato "row" para indicarlo como "fila" -->
+            <div class="row">
+                
+                <!-- SECCION 1 FILA : incluir imagen e indicamos tamanno de 3 columnas(del total de 12 de Bootstrap) -->
+                <div class ="col-3">
+                    <br>
+                    <!-- Agregamos imagenes en carpeta "imgs" para darle mas estilo a la pagina -->
+                    <img src="imgs/GIF_RICK_MORTY.gif" class="animated rotateIn agregar-delay-1">
+                    <br><br><br>
+                    <img src="imgs/GIF_RELOJ.gif" class="animated rotateIn agregar-delay-1">
+                    <br><br><br>
+                    <img src="imgs/GIF_HIPNOTICO.gif" class="animated rotateIn agregar-delay-1">
+
+                </div>
+
+                <!-- SECCION 2 FILA : archivo principal de la encuesta a resolver -->
+                <div class ="col-9  animated  flipInX agregar-delay-2">
+                    <h3>DESARROLLO DE TEST SOBRE CULTURA GENERAL DE LA PROGRAMACIÓN</h3>
+                    <p>A continuacion, van a desarrollar un examen corto de algunas preguntas sobre conceptos de programación y
+                        tiene el objetivo de repasarlos o aprenderlos, según sea el caso. Además, es importante tener en cuenta que 
+                        al final del formulario habrá una realimentación sobre el resultado y se mostrará en la tabla anexa.
+                    </p>
+
+                    <!-- PREGUNTA 1 -->
+                    <div class="col-12">
+                        <table class="col-12">
+                            <td class="fondo-preguntas">
+                                <h5>1. ¿Quién es el creador de Python?</h5>
+                                <input class="espacio-izq" type="radio" name="pregunta_1"  onclick="funcion_respuesta_1('A')">A.  James Gosling. <br>
+                                <input class="espacio-izq" type="radio" name="pregunta_1"  onclick="funcion_respuesta_1('B')">B.  Guido van Rossum.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_1"  onclick="funcion_respuesta_1('C')">C.  Linus Torvalds.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_1"  onclick="funcion_respuesta_1('D')">D.  Larry Page.<br><br>
+                            </td>
+                        </table>
+                    </div>
+
+                    <br>
+
+                    <!-- PREGUNTA 2 -->
+                    <div class="col-12">
+                        <table class="col-12">
+                            <td class="fondo-preguntas">
+                                <h5>2. En el paradigma de Programación Orientada a Objetos...<br>¿Cómo se llaman las "funciones" ubicadas dentro de las Clases?</h5>
+                                <input class="espacio-izq" type="radio" name="pregunta_2"  onclick="funcion_respuesta_2('A')">A.  Atributos<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_2"  onclick="funcion_respuesta_2('B')">B.  Herencias<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_2"  onclick="funcion_respuesta_2('C')">C.  Polimorfismos<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_2"  onclick="funcion_respuesta_2('D')">D.  Métodos<br><br>
+                            </td>
+                        </table>
+                    </div>
+
+                    <br>
+
+                    <!-- PREGUNTA 3 -->
+                    <div class="col-12">
+                        <table class="col-12">
+                            <td class="fondo-preguntas">
+                                <h5>3. ¿Cuál de las siguientes es una plataforma/librería enfocada a Machine Learning desarrollada por Google?</h5>
+                                <input class="espacio-izq" type="radio" name="pregunta_3"  onclick="funcion_respuesta_3('A')">A.  OpenCV. <br>
+                                <input class="espacio-izq" type="radio" name="pregunta_3"  onclick="funcion_respuesta_3('B')">B.  Django.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_3"  onclick="funcion_respuesta_3('C')">C.  Pandas FataFrames.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_3"  onclick="funcion_respuesta_3('D')">D.  TensorFlow.<br><br>
+                            </td>
+                        </table>
+                    </div>
+                
+                    <br>
+
+                    <!-- PREGUNTA 4 -->
+                    <div class="col-12">
+                        <table class="col-12">
+                            <td class="fondo-preguntas">
+                                <h5>4. ¿Cómo se llama el sistema actual más famoso para el monitoreo y control de versiones de un proyecto de programación?</h5>
+                                <input class="espacio-izq" type="radio" name="pregunta_4"  onclick="funcion_respuesta_4('A')">A.  GIT.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_4"  onclick="funcion_respuesta_4('B')">B.  SQL.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_4"  onclick="funcion_respuesta_4('C')">C.  TKINTER.<br>
+                                <input class="espacio-izq" type="radio" name="pregunta_4"  onclick="funcion_respuesta_4('D')">D.  DJANGO.<br><br>
+                            </td>
+                        </table>
+                    </div>
+
+                    <br>
+
+                </div>  
+
+            </div>
+
+        </div>
+
+
+        <!-- Ahora viene la parte final, en donde se procesaran todos los datos elegidos anteriores -->
+        <!-- Agregamos linea de separacion entre estas dos secciones -->
+        <hr>
+
+
+        <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid animated flipInX agregar-delay-2">
+
+            <!-- dentro de este container, creamos row, para dividir los inputs por igual -->
+            <div class="row">
+                
+                <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+                <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+                <div class="col-10 col-sm-3">
+                    Nombre:
+                    <input type="text" id="nombre" placeholder="Nombre">
+                </div>
+
+                <div class="col-10 col-sm-3">
+                    Apellido:
+                    <input type="text" id="apellido" placeholder="Apellido">
+                </div>
+
+                <div class="col-10 col-sm-3">
+                    Edad:
+                    <input type="number" id="edad" placeholder="Edad">
+                </div>
+
+                <div class="col-10 col-sm-3">
+                    <!-- OJO: con botones, existe evento llamado "onclick" para procesarlos en backend -->
+                    <!-- Este evento ademas habilita seccion de html con respuestas y resultado quiz -->
+                    <button onclick="procesar_datos()">Actualizar datos</button>
+                </div>
+                <br><br>
+            </div>
+        </div>
+
+
+        <!-- SECCION FINAL(Encargada de los resultados y la creacion de tabla) -->
+        <!-- ESTE DIV ES FUNDAMENTAL PORQUE NOS PERMITE MOSTRAR O ESCONDER ESTA SECCION(solo se muestra cuando usuario responda encuesta) -->
+        <div id="ESCONDER" style="visibility: hidden">
+            
+            <!-- CREACION TABLA DE RESULTADOS DEL USUARIO PERSONALIZADA SEGUN SUS RESPUESTAS (desde JS) -->
+            <!-- Ahora crearemos la seccion en donde crearemos la tabla de los datos ingresados -->
+            <!-- Como NO quiero que empiece inmediatamente, creare un <div> para separarlos segun "row" -->
+            <!-- Por lo tanto habra 1/12 del espacio total en blanco y luego tabla tendra 10/12 (orden) -->
+            <!-- Estas funcionalidades se pueden repasar aprendiendo los "layouts" de Bootstrap (recordar importarlo) -->
+            <div class="row col-12">
+                <div class="col-10 offset-1">
+                    <!-- Obligamos tabla a ser maximo tamanno (osea col-12 siguiendo con el formato en bootstrap) -->
+                    <table class="col-12">
+                        <br>
+                        <tr>
+                            <!--Creamos header de la tabla-->
+                            <th>NOMBRE</th>
+                            <th>APELLIDO</th>
+                            <th>EDAD</th>
+                            <th>PREGUNTAS CORRECTAS</th>
+                            <th>PORCENTAJE ACERTADO</th>
+                        </tr>
+
+                        <tr>
+                            <!-- Creamos datos de la tabla con id especifico para programarlo con archivo "JS" -->
+                            <td id="li1"></td>
+                            <td id="li2"></td>
+                            <td id="li3"></td>
+                            <td id="li4"></td>
+                            <td id="li5"></td>
+                        </tr>
+
+
+                    </table>
+                </div>                    
+            </div>
+            
+
+            <div class="row col-12">
+                <!-- AQUI ENTREGAREMOS LA SOLUCION DEL QUIZ DESDE JAVASCRIPT -->
+                <!-- (solo se ve cuando se habilite visibilidad de esta seccion de ESCONDER) -->
+                <div class="col-4 offset-2">
+                    <h5>SOLUCIÓN CORRECTA:</h5><br>
+                    <h5>1 ... B (Guido Van Rossum)</h5>
+                    <h5>2 ... D (Métodos)</h5>
+                    <h5>3 ... D (TensorFlow)</h5>
+                    <h5>4 ... A (GIT)</h5>    
+                </div>
+
+                <div class="col-3">
+                    <br>
+                    <img src="imgs/GIF_GANDALF.gif">
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- ESTE SERA UN CONTENEDOR ALERTA PARA AGRADECERLE AL USUARIO (desde JS) -->
+            <!-- Otra ayuda de Bootstrap es crear "contenedores" y estilarlos tipo "alertas" (ayuda a generar estilo bacano) -->
+            <div class="container-fluid col-12  animated flipInX agregar-delay-2">
+                <div class="alert alert-success" role="alert">
+                    <h4 id="NOMBRE_FINAL"></h4>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

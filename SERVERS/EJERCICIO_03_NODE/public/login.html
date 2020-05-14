@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO, MAYO 2020 -->
+<!-- CODIGO HTML PARA  REALIZAR EL LOGIN Y CONECTARLO CON SERVIDOR -->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+        <title>LOGIN</title>
+    </head>
+    <body>
+
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="col-12 animated  bounceInLeft">LOGIN TO THE BEST IOT PAGE</h1>
+
+
+        <!-- Ahora crearemos un contenedor que tendra 2 grandes columnas principales, divididas en 2 filas -->
+        <!-- Algo similar a esto (dos grandes columnas, donde la primera ocupe menos que la segunda)
+            -------------------------------------------------------------------------------------------------
+            |                       |                                                                       |
+            |                       |                                                                       |
+            |                       |                                                                       |
+            -------------------------------------------------------------------------------------------------
+        -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid">
+
+            <!-- Creamos division con formato "row" para indicarlo como "fila" -->
+            <div class="row">
+                <!-- SECCION FILA : archivo principal del login-->
+                <div class ="col-6  animated  flipInX agregar-delay-2">
+                    <h3>Ingrese sus datos de usuario</h3>
+                    <br>
+
+                </div>  
+
+            </div>
+
+        </div>
+
+        <!-- Agregamos linea de separacion entre estas dos secciones -->
+        <hr>
+
+
+        <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid animated flipInX agregar-delay-2">
+
+            <!-- dentro de este container, creamos row, para dividir los inputs por igual -->
+            <div class="row">
+                
+                <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+                <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+                <div class="col-10 col-sm-3">
+                    Usuario:
+                    <input type="text" id="login_usuario" placeholder="Usuario">
+                </div>
+
+                <div class="col-10 col-sm-3">
+                    Password:
+                    <input type="password" id="login_password" placeholder="Password">
+                </div>
+
+                <div class="col-10 col-sm-3">
+                    <!-- Utilizaremos id de login_button para procesar esto en JS -->
+                    <button id="login_button" >Submit</button>
+
+                </div>
+                <br><br>
+            </div>
+        </div>
+
+
+        <!-- Archivo para correcta conexion con JS y procesar login -->
+        <script src="js/login.js"></script>
+        
+        <!-- Jquery plugins -->
+        <script src="jquery/jquery.min.js"></script>
+        <script src="jquery-easing/jquery.easing.min.js"></script>
+
+
+
+    </body>
+</html>
