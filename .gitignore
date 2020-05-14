@@ -1,0 +1,3 @@
+# Ignore the NODEJS installed modules
+# (correct way to install them is with NPM and "package.json")
+node_modules
