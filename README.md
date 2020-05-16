@@ -30,6 +30,12 @@ This is the default development environment (from Microchip Community). Is the o
 https://www.microchip.com/mplab/mplab-x-ide
 ```
 
+*PROTEUS SOFTWARE <br />
+This is one of the best Softwares for the simulation of digital electronic circuits. It will allow us to test the basic programs of the microcontrollers (except for the ones that involve real server connections and other hard-to-simulate situations).
+```
+labcenter.com
+```
+
 * VS Code <br />
 Visual Studio Code is the main code editor for all files related to servers and high-level programming. This is not absolutely necessary, but from my experience, it gives us a great performance and we can link it with Git and Github easily.
 ```
