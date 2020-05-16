@@ -2,6 +2,13 @@
 # (correct way to install them is with NPM and "package.json")
 node_modules
 
-# Ignore all debug files for the PIC microcontrollers
-debug
+# Ignore all the NOT necessary files for the MPLAB ".X" folders of the PIC microcontroller projects (the re-generated ones)
+build
+dist
+Makefile-*
+Package-*
+private
+
+
+
 
