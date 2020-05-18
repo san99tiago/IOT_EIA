@@ -15,6 +15,8 @@ var con = mysql.createConnection({
     database: "iot_1" //Base de datos
 });
 
+
+//QUERY BASICO (mostrar info DB)
 con.connect( function(err) {
     if (err) throw err; //Error handler
     //indicamos que vamos a trabajar con tabla respectiva
@@ -84,6 +86,41 @@ app.post("/login",function(request,response) {
 
 
 
+//-------------------------------------------------------------------
+
+
+
+//POST ENSAYOS (seleccionar estrategicamente elementos de cierta columna)
+//Esta es para dar usuarios con nombre "san99tiago"
+app.post("/test_query_1",function(request,response) {
+
+    //Almacenamos info del body del post (en este caso JSON es contenido de interes)
+    let data = request.body;
+    
+    console.log(data);
+
+
+    //Hacemos un query al MySQL pidiendo acceso a test_table_2 (con variables obtenidas desde el JSON recibido)
+    con.query('INSERT INTO `iot_1`.`test_table_2` (`nombre`, `ciudad`, `pais`, `date_created`) VALUES (?, ?, ?, ?) ', [data.nombre, data.ciudad, data.pais, data.date_created], function(error, result, fields) { 
+        
+        if (error) {
+            console.log(error);
+        }
+        response.send("ok");
+    });
+
+});
+
+//-------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 
@@ -97,11 +134,6 @@ app.get("/cuestionario",function(request,response) {
     }
 });
 
-
-// app.get("/cuestionario" ,function( request , response ) {
-//     response.sendFile( __dirname + "/public/cuestionario.html")
-
-// });
 
 app.get("/TEST_GET" ,function( request , response ) {
 
