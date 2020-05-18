@@ -9,6 +9,9 @@ Makefile-*
 Package-*
 private
 
+# Ignore all the .vscode settings
+.vscode
+
 
 
 
