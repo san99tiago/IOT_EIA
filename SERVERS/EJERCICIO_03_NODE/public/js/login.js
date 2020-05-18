@@ -6,6 +6,7 @@ var password = '0';
 var usuariot = '0';
 
 
+//Archivo JSON para la info del usuario
 var datos_usuario = {
     usuario: usuario,
     password: password
