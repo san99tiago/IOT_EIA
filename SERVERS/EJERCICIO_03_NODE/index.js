@@ -43,7 +43,7 @@ app.use( express.static("public") );
 
 
 
-
+//Principal path para redireccionar al "/login"
 app.get("/" ,function( request , response ) {
     // De esta forma "renderiamos" archivo HTML
     response.sendFile( __dirname + "/public/login.html");
@@ -103,13 +103,47 @@ app.get("/change_password" ,function( request , response ) {
 app.post("/change_password",function(request,response) {
 
     var data = request.body;
-
     console.log(data);
 
     if ( data.new_password_1 == data.new_password_2){
-        response.send("datos_ok");
         console.log("CONTRASENNAS IGUALES");
+
+        //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+        con.query('SELECT * FROM test_table_1 WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
+            
+            //Creamos un objeto para recibir info de MySQL
+            var info_obtenida = {};
+
+            //almacenamos fila recibida  y la mostramos en terminal
+            var info_obtenida = results; 
+            console.log(info_obtenida);
+
+            //Validamos que Usuario y Contrasenna indicados sean correctos (para proceder a cambiarlos)
+            if (info_obtenida.length > 0) {
+
+                //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+                con.query('UPDATE `iot_1`.`test_table_1` SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
+                    
+                    //Creamos un objeto para recibir info de MySQL
+                    var info_obtenida = {};
+                    //almacenamos fila recibida  y la mostramos en terminal
+                    var info_obtenida = results; 
+                    console.log(info_obtenida);
+                    response.send("datos_ok");
+
+                });  
+
+
+
+            }else{
+                response.send("datos_error_auth");
+            }
+
+        });        
+
+
     }else{
+        response.send("datos_error");
         console.log("CONTRASENNAS DIFERENTES");
     }
 
