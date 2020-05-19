@@ -22,7 +22,7 @@ con.connect( function(err) {
     //indicamos que vamos a trabajar con tabla respectiva
     con.query("SELECT * FROM test_table_1", function (err, result, fields) {
         if (err) throw err; //Error handler
-        console.log(result);
+        // console.log(result);
     });
 });
 
@@ -46,9 +46,9 @@ app.use( express.static("public") );
 
 app.get("/" ,function( request , response ) {
     // De esta forma "renderiamos" archivo HTML
-    // response.redirect( '/login' )
-    response.sendFile( __dirname + "/public/login.html")
+    response.sendFile( __dirname + "/public/login.html");
 
+    console.log("login_entry");
 });
 
 //Variable para procesar y validar el ingreso correcto
@@ -86,9 +86,42 @@ app.post("/login",function(request,response) {
 
 
 
+
+
+
+//-------------------TAREA CHANGE PASSWORD--------------------------
+//Redireccion a url path para cambiar password
+app.get("/change_password" ,function( request , response ) {
+    // De esta forma "renderiamos" archivo HTML
+    //Llevamos a HTML asociado    
+    response.sendFile( __dirname + "/public/change_password.html");
+
+    //Mostramos en terimnal todo OK
+    console.log("change_password_entry");
+});
+
+app.post("/change_password",function(request,response) {
+
+    var data = request.body;
+
+    console.log(data);
+
+    if ( data.new_password_1 == data.new_password_2){
+        response.send("datos_ok");
+        console.log("CONTRASENNAS IGUALES");
+    }else{
+        console.log("CONTRASENNAS DIFERENTES");
+    }
+
+    
+});
+
+
+
+
+
+
 //-------------------------------------------------------------------
-
-
 
 //POST ENSAYOS (seleccionar estrategicamente elementos de cierta columna)
 //Esta es para dar usuarios con nombre "san99tiago"
