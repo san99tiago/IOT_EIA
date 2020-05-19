@@ -1,18 +1,11 @@
 // ARCHIVO PARA PROCESAR EL CAMBIO DE CONSTRASENNA (UTILIZANDO JQUERY)
 
-//------------------------EVENT: main login button---------------------------
-var usuario = '0';
-var password = '1';
-var password_1 = '2';
-var password_2 = '3';
-
-
 //Archivo JSON para la info del usuario
 var new_datos_usuario = {
-    actual_usuario: usuario,
-    actual_password: password,
-    new_password_1: password_1,
-    new_password_2: password_2
+    actual_usuario: '0',
+    actual_password: '0',
+    new_password_1: '0',
+    new_password_2: '1'
 };
 
 
@@ -41,9 +34,19 @@ document.getElementById('new_password_button').addEventListener('click', functio
             //En caso de que se logre conexion y usuario sea valido, se redirecciona url
             //nota: esta validacion se hace desde el "index.js"
             if(datosEntrada === "datos_ok") {
-                alert("EXCELENTE SANTI.");
-            }else{
-                alert("Hubo un problema, verifique datos ingresados.");
+
+                jConfirm("Contraseña actualizada correctamente, felicitaciones!", new_datos_usuario.actual_usuario+"!!!", function(r) {
+                    window.location.replace("/");
+                });
+                // alert("Contraseña actualizada correctamente, felicitaciones!");
+            }
+            else if (datosEntrada === "datos_error"){
+                // alert("Hubo un problema, sus contraseñas NO coinciden.");
+                jAlert("Hubo un problema, sus contraseñas NO coinciden.","CUIDADO");
+            }    
+            else if (datosEntrada === "datos_error_auth"){
+                // alert("Cuidado, su usuario y/o contraseña actuales están incorrectos.");
+                jAlert("Su usuario y/o contraseña actuales están incorrectos.","WARNING");
             }    
         }
     });
