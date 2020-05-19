@@ -70,11 +70,11 @@ hr {
 
 /* CSS PARA CREACION AUXILIAR DE LAS ANIMACIONES REQUERIDAS Y "DELAYS" */
 .agregar-delay-1 {
-    animation-delay: 1s;
+    animation-delay: 0.1s;
 }
 
 .agregar-delay-2 {
-    animation-delay: 2s;
+    animation-delay: 0.2s;
 }
 
 
