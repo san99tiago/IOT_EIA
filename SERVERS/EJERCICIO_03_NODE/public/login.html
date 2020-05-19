@@ -29,35 +29,21 @@
     <body>
 
         <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
-        <h1 class="col-12 animated  bounceInLeft">LOGIN TO THE BEST IOT PAGE</h1>
+        <h1 class="container-fluid animated  bounceInLeft">BIENVENIDOS A MI PÁGINA DE IOT</h1>
+    
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
 
-
-        <!-- Ahora crearemos un contenedor que tendra 2 grandes columnas principales, divididas en 2 filas -->
-        <!-- Algo similar a esto (dos grandes columnas, donde la primera ocupe menos que la segunda)
-            -------------------------------------------------------------------------------------------------
-            |                       |                                                                       |
-            |                       |                                                                       |
-            |                       |                                                                       |
-            -------------------------------------------------------------------------------------------------
-        -->
         <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
         <div class="container-fluid">
-
-            <!-- Creamos division con formato "row" para indicarlo como "fila" -->
-            <div class="row">
-                <!-- SECCION FILA : archivo principal del login-->
-                <div class ="col-6  animated  flipInX agregar-delay-2">
-                    <h3>Ingrese sus datos de usuario</h3>
-                    <br>
-
-                </div>  
-
-            </div>
-
+            <!-- SECCION FILA : archivo principal del login-->
+            <div class ="row animated  flipInX agregar-delay-2">
+                <h3>Ingrese sus datos de usuario</h3>
+            </div>  
         </div>
-
+        
         <!-- Agregamos linea de separacion entre estas dos secciones -->
-        <hr>
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+        <br>
 
 
         <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
@@ -105,6 +91,11 @@
         <!-- Jquery plugins -->
         <script src="./jquery/jquery.min.js"></script>
         <script src="./jquery-easing/jquery.easing.min.js"></script>
+
+
+        <!-- Jquery plugins for cool alerts -->
+        <link href="./jquery/jquery.alerts.css" rel="stylesheet" type="text/css" />  
+        <script src="./jquery/jquery.alerts.js"></script>
 
 
 

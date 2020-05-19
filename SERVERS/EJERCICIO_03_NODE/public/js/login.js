@@ -42,7 +42,8 @@ document.getElementById('login_button').addEventListener('click', function() {
                 //Unica forma de lograr conectarse al /cuestionario
                 window.location.replace("/cuestionario");
             }else{
-                alert("Nombre de usuario y/o contraseña incorrectos");
+                // alert("Nombre de usuario y/o contraseña incorrectos");
+                jAlert("Nombre de usuario y/o contraseña incorrectos","ALERTA");
             }    
         }
     });
@@ -73,8 +74,10 @@ document.getElementById('password_change_button').addEventListener('click', func
             if(datosEntrada === "server_ok") {
                 //Unica forma de lograr conectarse al /cuestionario
                 window.location.replace("/change_password");
+
             }else{
-                alert("Nombre de usuario y/o contraseña incorrectos");
+                jAlert("Nombre de usuario y/o contraseña incorrectos","CUIDADO");
+                // alert("Nombre de usuario y/0 contraseña incorrectos");
             }    
         }
     });
