@@ -3,7 +3,10 @@
 
 /* CSS BASICOS DE ESTILO PRINCIPAL DE LOS ELEMENTOS */
 body {
-    background-color: lightcyan;
+    background-color: lightcyan;    
+    margin: 0 !important;
+    padding: 0 !important;
+
 }
 h1 {
     background-color: #00DDFF;
@@ -12,11 +15,16 @@ h1 {
     padding-bottom: 10px;
     border: none;
     font-family: 'Bangers', cursive;
+    margin:0;
 }
 
 h3 {
     background-color: #419DFF;
-    text-align: center;
+    text-align: left;
+    padding: 15px;
+    width:100%;
+    margin:0;
+
 
 }
 
@@ -67,6 +75,13 @@ hr {
 .espacio-izq{
     margin-left: 30px;
 }
+
+
+
+.no-margin{
+    margin:0;
+}
+
 
 /* CSS PARA CREACION AUXILIAR DE LAS ANIMACIONES REQUERIDAS Y "DELAYS" */
 .agregar-delay-1 {
