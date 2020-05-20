@@ -52,6 +52,11 @@ Utilizaremos varias dependencias en nuestro servidor:
     Para procesar la info, lo hacemos desde "login.js" (a traves de Jquery)
 
 
+4. <JQUERY.ALERTS>
+    Este es un plugin que nos permite generar alertas personalizadas y con mejor estilo.
+    (Se deben instalar los archivos "jquery.alerts.css" y "jquery.alerts.js")
+
+
 
 
 
