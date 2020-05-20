@@ -48,40 +48,35 @@
 
         <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
         <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
-        <div class="container-fluid animated flipInX agregar-delay-2">
-
-            <!-- dentro de este container, creamos row, para dividir los inputs por igual -->
-            <div class="row">
+        <div class="container-fluid   animated flipInX agregar-delay-2">
                 
-                <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
-                <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
-                <div class="col-10 col-sm-3">
-                    Usuario:
-                    <input type="text" id="login_usuario" placeholder="Usuario">
-                </div>
+            <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+            <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+            <div class="col-6 col-sm-3 ">
+                Usuario:
+                <input class="mover-derecha-input" type="text" id="login_usuario" placeholder="Usuario">
+                <br>
+                <br>
+                Password:
+                <input type="password" id="login_password" placeholder="Password">
+            </div>
 
-                <div class="col-10 col-sm-3">
-                    Password:
-                    <input type="password" id="login_password" placeholder="Password">
-                </div>
+            <br>
 
                 <!-- Boton para hacer el login -->
-                <div class="col-10 col-sm-3">
+                <div class="col-6 col-sm-2">
+
                     <!-- Utilizaremos id de login_button para procesar esto en JS -->
                     <button id="login_button" >Submit</button>
 
-                </div>
-
-
-                <!-- Boton para redirigirnos a "cambio de contrasenna" -->
-                <div class="col-10 col-sm-3">
-                <button id="password_change_button" class="float-left submit-button" >Change Password</button>
+                    <!-- Boton para redirigirnos a "cambio de contrasenna" -->
+                    <button id="password_change_button" class="float-left submit-button" >Change Password</button>
 
                 </div>
 
 
-                <br><br>
-            </div>
+
+
         </div>
 
 
