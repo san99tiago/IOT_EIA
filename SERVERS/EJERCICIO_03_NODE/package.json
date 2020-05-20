@@ -11,6 +11,8 @@
   "author": "Santiago Garcia Arango",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^2.6.1",
+    "colors": "^1.4.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   },
