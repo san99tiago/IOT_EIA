@@ -49,35 +49,57 @@
         <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
         <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
         <div class="container-fluid   animated flipInX agregar-delay-2">
-                
-            <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
-            <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
-            <div class="col-6 col-sm-3 ">
-                Usuario:
-                <input class="mover-derecha-input" type="text" id="login_usuario" placeholder="Usuario">
-                <br>
-                <br>
-                Password:
-                <input type="password" id="login_password" placeholder="Password">
-            </div>
+            
+            <div class="row">
 
-            <br>
+                <div class="col-6">
 
-                <!-- Boton para hacer el login -->
-                <div class="col-6 col-sm-2">
-
-                    <!-- Utilizaremos id de login_button para procesar esto en JS -->
-                    <button id="login_button" >Submit</button>
-
-                    <!-- Boton para redirigirnos a "cambio de contrasenna" -->
-                    <button id="password_change_button" class="float-left submit-button" >Change Password</button>
+                    <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+                    <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+                    <div class="col-12 ">
+                        Bienvenido a esta gran pagina de IOT, por favor ingrese sus datos.<br><br>
+                        Usuario:
+                        <input class="mover-derecha-input" type="text" id="login_usuario" placeholder="Usuario">
+                        <br>
+                        <br>
+                        Password:
+                        <input type="password" id="login_password" placeholder="Password">
+                    </div>
+        
+                    <br>
+        
+                    <!-- Boton para hacer el login -->
+                    <div class="col-12">
+                        <!-- Utilizaremos id de login_button para procesar esto en JS -->
+                        <button id="login_button" >Submit</button>
+                        <!-- Boton para redirigirnos a "cambio de contrasenna" -->
+                        <button id="password_change_button"  >Change Password</button>
+                    </div>
 
                 </div>
+
+                <div class="col-3">
+                    <img src="imgs/GIF_API.gif" class="animated rotateIn agregar-delay-1">
+
+                    <br><br>
+
+                    <iframe width="210%" height="80%"
+                        src="https://www.youtube.com/embed/Mbx5IMICS_Y">
+                    </iframe>
+
+                </div>
+                <div class="col-3">
+                    <img src="imgs/GIR_FOURIER_SERIES.gif" class="animated rotateIn agregar-delay-1">
+                </div>
+
+            </div>
 
 
 
 
         </div>
+
+
 
 
         <!-- Archivo para correcta conexion con JS y procesar login -->
