@@ -57,11 +57,16 @@ td {
 
 }
 button {
-    background-color: lightgreen;
+    background-color: aquamarine;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 10px;
 }
+button:hover {
+    background-color: darkslateblue;
+    color: white;
+}
+
 input {
     margin-right: 10px;
 }
@@ -76,10 +81,22 @@ hr {
     margin-left: 30px;
 }
 
+.mover-derecha-input{
+    position:relative;
+    left:12px;
+}
 
+.mover-derecha-bloque{
+    position:relative;
+    left:25px;
+}
 
 .no-margin{
     margin:0;
+}
+
+.color-fondo-azul{
+    background-color: #66B2FF;
 }
 
 
