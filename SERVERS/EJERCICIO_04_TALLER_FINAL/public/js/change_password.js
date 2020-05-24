@@ -59,7 +59,7 @@ document.getElementById('new_password_button').addEventListener('click', functio
 //Agregamos "EventListener" para procesar click en boton
 document.getElementById('volver').addEventListener('click', function() 
 {
-    window.location.replace("/");
+    window.location.replace("/main");
 
 });
 
