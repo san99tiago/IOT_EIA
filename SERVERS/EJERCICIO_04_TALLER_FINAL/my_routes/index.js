@@ -59,7 +59,7 @@ app.post("/login",function(request,response) {
 
 
 
-//-------------------TAREA CHANGE PASSWORD--------------------------
+//-----------------------------------------CHANGE PASSWORD-----------------------------------------------
 //Redireccion a url path para cambiar password
 app.get("/change_password" ,function( request , response ) {
     // De esta forma "renderiamos" archivo HTML
@@ -67,7 +67,7 @@ app.get("/change_password" ,function( request , response ) {
     response.sendFile( __dirname + "/public/change_password.html");
 
     //Mostramos en terimnal todo OK
-    console.log("change_password_entry");
+    console.log("change_password_entry".red);
 });
 
 app.post("/change_password",function(request,response) {
@@ -79,7 +79,7 @@ app.post("/change_password",function(request,response) {
         console.log("CONTRASENNAS IGUALES");
 
         //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-        con.query('SELECT * FROM test_table_1 WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
+        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
             
             //Creamos un objeto para recibir info de MySQL
             var info_obtenida = {};
@@ -92,7 +92,7 @@ app.post("/change_password",function(request,response) {
             if (info_obtenida.length > 0) {
 
                 //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-                con.query('UPDATE `iot_1`.`test_table_1` SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
+                con.query('UPDATE iot_taller_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
                     
                     //Creamos un objeto para recibir info de MySQL
                     var info_obtenida = {};
@@ -126,30 +126,6 @@ app.post("/change_password",function(request,response) {
 
 
 
-//-------------------------------------------------------------------
-
-//POST ENSAYOS (seleccionar estrategicamente elementos de cierta columna)
-//Esta es para dar usuarios con nombre "san99tiago"
-app.post("/test_query_1",function(request,response) {
-
-    //Almacenamos info del body del post (en este caso JSON es contenido de interes)
-    let data = request.body;
-    
-    console.log(data);
-
-
-    //Hacemos un query al MySQL pidiendo acceso a test_table_2 (con variables obtenidas desde el JSON recibido)
-    con.query('INSERT INTO `iot_1`.`test_table_2` (`nombre`, `ciudad`, `pais`, `date_created`) VALUES (?, ?, ?, ?) ', [data.nombre, data.ciudad, data.pais, data.date_created], function(error, result, fields) { 
-        
-        if (error) {
-            console.log(error);
-        }
-        response.send("ok");
-    });
-
-});
-
-//-------------------------------------------------------------------
 
 
 
@@ -160,9 +136,8 @@ app.post("/test_query_1",function(request,response) {
 
 
 
-
-
-app.get("/cuestionario",function(request,response) {
+//-----------------------------------------MAIN LOGIN TO INFO-----------------------------------------------
+app.get("/main",function(request,response) {
     //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
     if (ingreso) {
         console.log("success_entry");
@@ -173,24 +148,8 @@ app.get("/cuestionario",function(request,response) {
 });
 
 
-app.get("/TEST_GET" ,function( request , response ) {
-
-    //Mostramos en terminal que se hizo un GET a "TEST_GET"
-    console.log("TEST_GET_DONE");
-
-    
-    //Simplemente devolvemos numero aleatorio al usuario
-    var aleatorio = Math.random() ;
-
-    response.send( aleatorio.toString() );
-    response.status(200);
-
-});
-
-
-
-
-app.post("/TEST_POST" ,function( request , response ) {
+//------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
+app.post("/esp_post" ,function( request , response ) {
 
     let data = request.body;
 
