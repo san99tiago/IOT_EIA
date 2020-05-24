@@ -126,26 +126,86 @@ my_router.post("/change_password",function(request,response) {
                     var info_obtenida = results; 
                     console.log(info_obtenida);
                     response.send("datos_ok");
-
                 });  
-
-
-
             }else{
                 response.send("datos_error_auth");
             }
-
         });        
-
-
     }else{
         response.send("datos_error");
         console.log("CONTRASENNAS DIFERENTES");
     }
+});
 
 
 
 
+
+
+
+//-----------------------------------------CREAR NUEVO USUARIO-----------------------------------------------
+//Redireccion a url path para crear un nuevo usuario
+my_router.get("/crear_usuario" ,function( request , response ) {
+    // De esta forma "renderiamos" archivo HTML
+    //Llevamos a HTML asociado    
+    response.sendFile( path.join(__dirname ,"..", "/public/crear_usuario.html") );
+
+    //Mostramos en terimnal todo OK
+    console.log("crear_usuario_entry".blue);
+});
+
+my_router.post("/crear_usuario",function(request,response) {
+
+    var data = request.body;
+    console.log(data);
+
+
+    if ( data.nuevo_password_1 == data.nuevo_password_2){
+        console.log("CONTRASENNAS IGUALES".green);
+
+        //QUERY para verificar que usuario NO exista previamente (evitar 2 nombres de usuario iguales)
+        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.nuevo_usuario], function(error, results, fields) { 
+            
+            //Creamos un objeto para recibir info de MySQL
+            var info_obtenida = {};
+
+            //almacenamos fila recibida  y la mostramos en terminal
+            var info_obtenida = results; 
+            console.log(info_obtenida);
+
+            //Al validar que usuario NO exista (de lo contrario, enviar que ya existe usuario)
+            if (info_obtenida.length == 0) {
+
+                //En caso de que hayan dejado algo vacio de la info necesaria, debe haber error e indicarlo en HTML como alerta (osea enviamos error_falta_datos)
+                if( data.new_password_1=="" || data.nuevo_nombre=="" || data.nuevo_apellido =="" || data.nuevo_usuario=="" || data.nuevo_edad=="" || data.nuevo_sexo=="" || data.nuevo_pais=="" ){
+                    response.send("error_falta_datos");
+                    console.log("FALTAN DATOS POR LLENAR DE LA INFO".red)
+                }else{
+                    //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+                    con.query('INSERT INTO iot_taller_final.usuarios (`nombre`, `apellido`, `usuario`, `password`, `edad`, `sexo`, `pais`, `perfil`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', [data.nuevo_nombre, data.nuevo_apellido , data.nuevo_usuario, data.nuevo_password_2, data.nuevo_edad, data.nuevo_sexo, data.nuevo_pais, data.nuevo_perfil], function(error, results, fields) { 
+                        
+                        //Creamos un objeto para recibir info de MySQL
+                        var info_obtenida = {};
+                        //almacenamos fila recibida  y la mostramos en terminal
+                        var info_obtenida = results; 
+                        console.log(info_obtenida);
+                        response.send("crear_usuario_ok");
+                    });  
+                }
+
+            }else{
+                //Si hay respuesta (mayor a cero), implica que SI existe usuario igual, por lo que debe responderse esto...
+                response.send("usuario_existente_ojo");
+                console.log("USUARIO_EXISTENTE".red);
+            }
+        
+        
+        
+        });        
+    }else{
+        response.send("datos_error");
+        console.log("CONTRASENNAS DIFERENTES");
+    }
 });
 
 
