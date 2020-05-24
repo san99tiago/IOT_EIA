@@ -43,5 +43,9 @@ document.getElementById('login_button').addEventListener('click', function() {
         }
     });
 });
+//Agregamos "EventListener" para procesar click en boton
+document.getElementById('crear_new_user').addEventListener('click', function() {
+    window.location.replace("/crear_usuario");
+});
 
 
