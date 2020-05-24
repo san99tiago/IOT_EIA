@@ -42,6 +42,14 @@ var ingreso = false;
 
 //Principal path para redireccionar al "/login"
 my_router.get("/" ,function( request , response ) {
+    //Redirigimos archivo html hacia login.html
+    response.sendFile( path.join(__dirname,"..", "/public/login.html") );
+    response.redirect('/login');
+});
+
+//Principal path para redireccionar al "/login"
+my_router.get("/login" ,function( request , response ) {
+
     ingreso = 0; //Reseteamos variable ingreso (forma de cerrar sesion desde "main.js")
     usuario_actual = ""; //Reseteamos el nombre del usuario actual en la session
 
@@ -215,53 +223,66 @@ my_router.post("/crear_usuario",function(request,response) {
 
 
 //-----------------------------------------ELIMINAR USUARIO-----------------------------------------------
-//Redireccion a url path para cambiar password
+//Redireccion a url path para eliminar un usuario ya existente
 my_router.get("/eliminar_usuario" ,function( request , response ) {
-    // De esta forma "renderiamos" archivo HTML
-    //Llevamos a HTML asociado    
-    response.sendFile( path.join(__dirname ,"..", "/public/eliminar_usuario.html") );
-
-    //Mostramos en terimnal todo OK
-    console.log("change_password_entry".red);
+    
+    //Solamente damos acceso, si usuario ya esta con ingreso correcto
+    if (ingreso){
+        // De esta forma "renderiamos" archivo HTML
+        //Llevamos a HTML asociado    
+        response.sendFile( path.join(__dirname ,"..", "/public/eliminar_usuario.html") );
+        
+        //Mostramos en terimnal todo OK
+        console.log("eliminar_usuario_entry".red);
+    }else{
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/');
+    }
 });
 
 my_router.post("/eliminar_usuario",function(request,response) {
-
+    
     var data = request.body;
     console.log(data);
+    
 
-
-    if ( data.new_password_1 == data.new_password_2){
-        console.log("CONTRASENNAS IGUALES");
-        //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
+    //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+    con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
+        
+        //Creamos un objeto para recibir info de MySQL
+        var info_obtenida = {};
+        
+        //almacenamos fila recibida  y la mostramos en terminal
+        var info_obtenida =result; 
+        console.log(info_obtenida);
+        
+        //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
+        if (info_obtenida.length > 0) {
             
-            //Creamos un objeto para recibir info de MySQL
-            var info_obtenida = {};
-            //almacenamos fila recibida  y la mostramos en terminal
-            var info_obtenida = results; 
-            console.log(info_obtenida);
-            //Validamos que Usuario y Contrasenna indicados sean correctos (para proceder a cambiarlos)
-            if (info_obtenida.length > 0) {
-                //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-                con.query('UPDATE iot_taller_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
-                    
-                    //Creamos un objeto para recibir info de MySQL
-                    var info_obtenida = {};
-                    //almacenamos fila recibida  y la mostramos en terminal
-                    var info_obtenida = results; 
-                    console.log(info_obtenida);
-                    response.send("datos_ok");
-                });  
-            }else{
-                response.send("datos_error_auth");
-            }
-        });        
-    }else{
-        response.send("datos_error");
-        console.log("CONTRASENNAS DIFERENTES");
-    }
+            con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.usuario_eliminar], function(error, result, fields) { 
+
+                //Cargamos info de respuesta query
+                info_obtenida = result;
+                console.log(info_obtenida);
+
+                //Unicamente indicamos que usuario se creo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+                if (info_obtenida.affectedRows == "1"){
+                    response.send("usuario_eliminado");
+                }else{
+                    response.send("error_vuelva_luego");
+                }
+
+            });
+        }else{   
+            response.send('datos_error_auth');
+        }           
+    });
+    
 });
+
+
+
+
 
 
 
@@ -278,9 +299,15 @@ my_router.get("/main",function(request,response) {
         console.log("success_entry");
         response.sendFile( path.join(__dirname, "..", "/public/main.html") );
     } else {
-        response.send("Traidor, usted NO se ha autentificado, la próxima le cerramos la cuenta.");
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/');
     }
 });
+
+
+
+
+
 
 
 //------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
