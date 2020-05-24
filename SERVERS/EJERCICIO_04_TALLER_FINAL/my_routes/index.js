@@ -12,27 +12,25 @@ const express = require('express');
 const my_router = express.Router();
 
 
-//--------------------------------PROCESAMIENTO DE RUTAS----------------------------
+//--------------------------------PROCESAMIENTO DE RUTAS----------------------------------
+//-----------------------------------------------------------------------------------------
 
 
+//----------------------------------LOGIN---------------------------------------------------
 //Principal path para redireccionar al "/login"
 app.get("/" ,function( request , response ) {
     // De esta forma "renderiamos" archivo HTML
     response.sendFile( __dirname + "/public/login.html");
-
-    console.log("login_entry");
+    console.log("login_entry".green);
 });
 
 //Variable para procesar y validar el ingreso correcto
 var ingreso = false;
 
 app.post("/login",function(request,response) {
-
     //Almacenamos info del body del post (en este caso JSON es contenido de interes)
     let data = request.body;
-    
     console.log(data);
-
 
     //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
     con.query('SELECT * FROM test_table_1 WHERE usuario = ? AND password = ?', [data.usuario, data.password], function(error, result, fields) { 
