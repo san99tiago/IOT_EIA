@@ -72,6 +72,7 @@ input {
 }
 hr {
     border: 1px solid black;
+    width: 100%;
 }
 
 .fondo-preguntas{
@@ -102,11 +103,11 @@ hr {
 
 /* CSS PARA CREACION AUXILIAR DE LAS ANIMACIONES REQUERIDAS Y "DELAYS" */
 .agregar-delay-1 {
-    animation-delay: 0.5s;
+    animation-delay: 0.05s;
 }
 
 .agregar-delay-2 {
-    animation-delay: 1s;
+    animation-delay: 0.1s;
 }
 
 
