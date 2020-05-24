@@ -23,18 +23,6 @@ var con = mysql.createConnection({
 });
 
 
-// //QUERY BASICO (mostrar info DB)
-// con.connect( function(err) {
-//     if (err) throw err; //Error handler
-//     //indicamos que vamos a trabajar con tabla respectiva
-//     con.query("SELECT * FROM test_table_1", function (err, result, fields) {
-//         if (err) throw err; //Error handler
-//         // console.log(result);
-//     });
-// });
-
-
-
 
 //-------------------------------EXPRESS-----------------------------------------
 // Activamos librerias e inicializamos express
