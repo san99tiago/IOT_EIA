@@ -8,22 +8,6 @@
 const colors = require('colors');
 
 
-//----------------------------------MYSQL---------------------------------------
-//Forma de conectarnos a Base de Datos de MySQL (ya creada en MySQL workbench)
-//Creamos variable para menejar mysql a traves de dependencia ya instalada de mysql
-var mysql = require('mysql');
-
-//Creamos variable para "conectarnos" con mysql a la base de datos y tabla especifica
-var con = mysql.createConnection({
-    //Info necesaria para acceder a la base de datos respectiva
-    host: "localhost", 
-    user: "root",
-    password: "coco", 
-    database: "iot_taller_final" //Base de datos
-});
-
-
-
 //-------------------------------EXPRESS-----------------------------------------
 // Activamos librerias e inicializamos express
 //(ya debemos haber corrido en terminal >>npm install express)
