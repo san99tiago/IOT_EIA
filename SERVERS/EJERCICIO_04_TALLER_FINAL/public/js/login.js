@@ -33,11 +33,14 @@ document.getElementById('login_button').addEventListener('click', function() {
 
             //En caso de que se logre conexion y usuario sea valido, se redirecciona url
             //nota: esta validacion se hace desde el "index.js"
-            if(datosEntrada === "server_ok") {
+            if(datosEntrada === "server_user_ok") {
                 //Unica forma de lograr conectarse al /cuestionario
                 window.location.replace("/main");
-            }else{
-                // alert("Nombre de usuario y/o contraseña incorrectos");
+            }
+            else if(datosEntrada === "server_admin_ok"){
+                window.location.replace("/admin");
+            }    
+            else if(datosEntrada === "usuario_o_password_incorrectos"){
                 jAlert("Nombre de usuario y/o contraseña incorrectos","ALERTA");
             }    
         }

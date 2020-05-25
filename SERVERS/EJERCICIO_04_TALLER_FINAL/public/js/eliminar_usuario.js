@@ -2,7 +2,29 @@
 //SANTIAGO GARCIA ARANGO
 //------------------------------------------------------------------------------------------------
 
+
 //----------------------FUNCION AL RECARGAR PAGINA, PARA OBTENER USUARIO-------------------------
+//El objetivo es correrla al cargar pagina y que nos llene automaticamente el usuario segun la sesion
+function funcion_cargar_pagina(){
+    $.post({
+        //Redirigimos el path para acceder al login(esta vez con post)
+        url: "/eliminar_usuario",
+        
+        //Convertimos objeto de datos de usuario a formato JSON
+        data: JSON.stringify(delete_user_info),
+        //Indicamos Header para enviar info de tipo JSON
+        contentType: "application/json",
+        
+        //En caso de lograr correcto POST
+        //nota: (datos_Entrada es la respuesta enviada desde el index.js)
+        success: function(datosEntrada,status) {
+                        
+            if(datosEntrada.split(":")[0] === "usuario") {
+                document.getElementById("usuario_eliminar").value = datosEntrada.split(":")[1];
+            }
+        }   
+    });
+};
 
 
 
@@ -20,7 +42,7 @@ function funcion_confirmar(){
 var delete_user_info = {
     usuario_eliminar: '0',
     password_eliminar: '0',
-
+    first_access: "yes"
 };
 
 //Agregamos "EventListener" para procesar click en boton
@@ -29,6 +51,7 @@ document.getElementById('ejecutar_eliminar_usuario').addEventListener('click', f
 
     delete_user_info.usuario_eliminar = document.getElementById("usuario_eliminar").value;
     delete_user_info.password_eliminar = document.getElementById("password_eliminar").value;
+    delete_user_info.first_access = "no";
 
     //Solamente procedemos a hacer el POST, si el usuario confirma que desea elimnar su cuenta
     if (confirmar_eliminar){
