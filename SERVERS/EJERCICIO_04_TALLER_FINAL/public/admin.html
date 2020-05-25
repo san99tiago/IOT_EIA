@@ -26,7 +26,9 @@
 
         <title>LOGIN ADMIN</title>
     </head>
-    <body>
+
+    <!-- Funcion principal para cargar tabla de usuarios actuales de la pagina -->
+    <body onload="mostrar_tabla_segun_usuarios()">
 
         <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
         <h1 class="container-fluid animated  bounceInLeft">¡ADMINISTRADOR DE USUARIOS: BIENVENIDO!</h1>
@@ -61,10 +63,88 @@
         <div class="container-fluid   animated flipInX agregar-delay-2">
             <div class="row">
                 <div class="col-12 ">
-                    A continuación, ingrese la información congruente con el control de los usuarios regulares.
+                    A continuación, ingrese la información del cambio que desee hacer.
                 </div>
             </div>
         </div>
+        
+        <br>
+        
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <div class="col-12 ">
+                ¿Qué desea hacer?
+                <select  id="opciones_1">
+                    <option value="admin_eliminar_usuario">Eliminar un usuario existente</option>
+                    <option value="admin_actualizar_dato_usuario">Actualizar dato de usuario existente</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <div class="col-12">
+
+                Indique Usuario:
+                <input type="text" id="usuario_elegido" placeholder="usuario" style="position:relative; left:17px;">
+                
+                <br><br>
+
+                Dato a cambiar:
+                <select id="opciones_2"  style="position:relative; left:21px;">
+                    <option value="nombre">NOMBRE</option>
+                    <option value="id">APELLIDO</option>
+                    <option value="usuario">USUARIO</option>
+                    <option value="password">PASSWORD</option>
+                    <option value="edad">EDAD</option>
+                    <option value="sexo">SEXO</option>
+                    <option value="pais">PAIS</option>
+                    <option value="perfil">PERFIL</option>
+                </select>
+                
+                <br><br>
+                
+                Nuevo Dato:
+                <input type="text" id="nuevo_dato" placeholder="nuevo_dato" style="position:relative; left:42px;">
+
+                <br><br>
+                
+                <!-- Utilizaremos id de change_password_button para procesar esto en JS -->
+                <button id="admin_actualizar_boton">Actualizar</button>
+
+            </div>
+        </div>
+
+    
+
+
+        <br>
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+        <br>
+
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <table id="tabla_usuarios_dinamica">
+                <thead>                    
+                    <tr>
+                        <th>ID</th>
+                        <th>NOMBRE</th>
+                        <th>APELLIDO</th>
+                        <th>USUARIO</th>
+                        <th>PASSWORD</th>
+                        <th>EDAD</th>
+                        <th>SEXO</th>
+                        <th>PAIS</th>
+                        <th>PERFIL</th>
+                    </tr>
+                </thead>
+                <!-- NOTA: <tbody> nos sirve para aprovecharnos de JQUERY y llenar tabla (ver "admin.js" para ver proceso) -->
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <br><br><br>
 
 
 

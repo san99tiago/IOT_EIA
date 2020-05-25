@@ -2,6 +2,32 @@
 //SANTIAGO GARCIA ARANGO
 //------------------------------------------------------------------------------------------------
 
+//----------------------FUNCION AL RECARGAR PAGINA, PARA OBTENER USUARIO-------------------------
+//El objetivo es correrla al cargar pagina y que nos llene automaticamente el usuario segun la sesion
+function funcion_cargar_pagina(){
+    $.post({
+        //Redirigimos el path para acceder al login(esta vez con post)
+        url: "/change_password",
+        
+        //Convertimos objeto de datos de usuario a formato JSON
+        data: JSON.stringify(new_datos_usuario),
+        //Indicamos Header para enviar info de tipo JSON
+        contentType: "application/json",
+        
+        //En caso de lograr correcto POST
+        //nota: (datos_Entrada es la respuesta enviada desde el index.js)
+        success: function(datosEntrada,status) {
+                        
+            if(datosEntrada.split(":")[0] === "usuario") {
+                document.getElementById("actual_usuario").value = datosEntrada.split(":")[1];
+            }
+        }   
+    });
+};
+
+
+
+
 
 //--------------------------------BOTON PARA PROCESAR CAMBIO CONTRASEÑA----------------------------
 //Archivo JSON para la info del usuario
@@ -9,7 +35,8 @@ var new_datos_usuario = {
     actual_usuario: '0',
     actual_password: '0',
     new_password_1: '0',
-    new_password_2: '1'
+    new_password_2: '1',
+    first_access: "yes"
 };
 
 //Agregamos "EventListener" para procesar click en boton
@@ -20,7 +47,7 @@ document.getElementById('new_password_button').addEventListener('click', functio
     new_datos_usuario.actual_password = document.getElementById("actual_password").value;
     new_datos_usuario.new_password_1 = document.getElementById("new_password_1").value;
     new_datos_usuario.new_password_2 = document.getElementById("new_password_2").value;
-
+    new_datos_usuario.first_access = "no";
     //De esta manera utilizamos JQUERY para realizar el POST
     $.post({
         //Redirigimos el path para acceder al login(esta vez con post)

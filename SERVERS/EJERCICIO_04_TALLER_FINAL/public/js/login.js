@@ -2,9 +2,13 @@
 //SANTIAGO GARCIA ARANGO
 //---------------------------------------------------------------------------------------
 
+//----------------------CURSOR FOCUS ON MAIN INPUT USERNAME------------------------
+function poner_cursor_input_usuario() {
+    $("#login_usuario").focus();
+}
 
-//------------------------EVENT: main login button---------------------------
 
+//------------------------EVENT: main login button--------------------------------
 //Archivo JSON para la info del usuario
 var datos_usuario = {
     usuario: "0",
