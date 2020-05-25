@@ -73,14 +73,30 @@ my_router.post("/login",function(request,response) {
         //almacenamos fila recibida  y la mostramos en terminal
         var info_obtenida =result; 
         console.log(info_obtenida);
+        // console.log(typeof(info_obtenida));
+        // console.log(info_obtenida[0]);
 
         //Validamos usuario
         if (info_obtenida.length > 0) {
             ingreso = true;
             usuario_actual = data.usuario;
-            response.send("server_ok");
+
+
+            //Ahora filtramos si entrada es de USUARIO o de ADMINISTRADOR ( y enviamos mensaje personalizado para el proceso correcto)
+            //Nota: como es objeto tipo vector, se accede primero a la posicion donde esta la info y luego al perfil
+            if (info_obtenida[0].perfil == "U"){
+                response.send("server_user_ok");
+                console.log("login_succes_user");
+            }
+            else if (info_obtenida[0].perfil == "A"){
+                response.send("server_admin_ok");
+                console.log("login_succes_admin");
+            }
+
+
+
         } else {   
-            response.send('Usuario y/o contraseña incorrectos!');
+            response.send('usuario_o_password_incorrectos');
             ingreso = false;
         }           
     });
@@ -245,38 +261,46 @@ my_router.post("/eliminar_usuario",function(request,response) {
     var data = request.body;
     console.log(data);
     
+    //Si es primer acceso como tal enviamos nombre del usuario almacenado globalmente (sino, aceptamos post normal)
+    if (data.first_access == "yes"){
+        //Enviamos info valiosa para procesar nombre del usuario
+        //(recordar que info del usuario es unica de la session)
+        response.send("usuario:" + usuario_actual );
+    }else{
 
-    //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-    con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
-        
-        //Creamos un objeto para recibir info de MySQL
-        var info_obtenida = {};
-        
-        //almacenamos fila recibida  y la mostramos en terminal
-        var info_obtenida =result; 
-        console.log(info_obtenida);
-        
-        //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
-        if (info_obtenida.length > 0) {
+        //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
             
-            con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.usuario_eliminar], function(error, result, fields) { 
+            //Creamos un objeto para recibir info de MySQL
+            var info_obtenida = {};
+            
+            //almacenamos fila recibida  y la mostramos en terminal
+            var info_obtenida =result; 
+            console.log(info_obtenida);
+            
+            //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
+            if (info_obtenida.length > 0) {
+                
+                con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.usuario_eliminar], function(error, result, fields) { 
+    
+                    //Cargamos info de respuesta query
+                    info_obtenida = result;
+                    console.log(info_obtenida);
+    
+                    //Unicamente indicamos que usuario se creo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+                    if (info_obtenida.affectedRows > 1){
+                        response.send("usuario_eliminado");
+                    }else{
+                        response.send("error_vuelva_luego");
+                    }
+    
+                });
+            }else{   
+                response.send('datos_error_auth');
+            }           
+        });
+    }
 
-                //Cargamos info de respuesta query
-                info_obtenida = result;
-                console.log(info_obtenida);
-
-                //Unicamente indicamos que usuario se creo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
-                if (info_obtenida.affectedRows == "1"){
-                    response.send("usuario_eliminado");
-                }else{
-                    response.send("error_vuelva_luego");
-                }
-
-            });
-        }else{   
-            response.send('datos_error_auth');
-        }           
-    });
     
 });
 
