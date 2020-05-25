@@ -124,40 +124,46 @@ my_router.post("/change_password",function(request,response) {
     var data = request.body;
     console.log(data);
 
-
-    if ( data.new_password_1 == data.new_password_2){
-        console.log("CONTRASENNAS IGUALES");
-
-        //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
-            
-            //Creamos un objeto para recibir info de MySQL
-            var info_obtenida = {};
-
-            //almacenamos fila recibida  y la mostramos en terminal
-            var info_obtenida = results; 
-            console.log(info_obtenida);
-
-            //Validamos que Usuario y Contrasenna indicados sean correctos (para proceder a cambiarlos)
-            if (info_obtenida.length > 0) {
-
-                //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-                con.query('UPDATE iot_taller_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
-                    
-                    //Creamos un objeto para recibir info de MySQL
-                    var info_obtenida = {};
-                    //almacenamos fila recibida  y la mostramos en terminal
-                    var info_obtenida = results; 
-                    console.log(info_obtenida);
-                    response.send("datos_ok");
-                });  
-            }else{
-                response.send("datos_error_auth");
-            }
-        });        
+    //Si es primer acceso como tal enviamos nombre del usuario almacenado globalmente (sino, aceptamos post normal)
+    if (data.first_access == "yes"){
+        //Enviamos info valiosa para procesar nombre del usuario
+        //(recordar que info del usuario es unica de la session)
+        response.send("usuario:" + usuario_actual );
     }else{
-        response.send("datos_error");
-        console.log("CONTRASENNAS DIFERENTES");
+        if ( data.new_password_1 == data.new_password_2){
+            console.log("CONTRASENNAS IGUALES");
+
+            //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
+                
+                //Creamos un objeto para recibir info de MySQL
+                var info_obtenida = {};
+
+                //almacenamos fila recibida  y la mostramos en terminal
+                var info_obtenida = results; 
+                console.log(info_obtenida);
+
+                //Validamos que Usuario y Contrasenna indicados sean correctos (para proceder a cambiarlos)
+                if (info_obtenida.length > 0) {
+
+                    //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
+                    con.query('UPDATE iot_taller_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
+                        
+                        //Creamos un objeto para recibir info de MySQL
+                        var info_obtenida = {};
+                        //almacenamos fila recibida  y la mostramos en terminal
+                        var info_obtenida = results; 
+                        console.log(info_obtenida);
+                        response.send("datos_ok");
+                    });  
+                }else{
+                    response.send("datos_error_auth");
+                }
+            });        
+        }else{
+            response.send("datos_error");
+            console.log("CONTRASENNAS DIFERENTES");
+        }
     }
 });
 
@@ -288,7 +294,7 @@ my_router.post("/eliminar_usuario",function(request,response) {
                     console.log(info_obtenida);
     
                     //Unicamente indicamos que usuario se creo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
-                    if (info_obtenida.affectedRows > 1){
+                    if (info_obtenida.affectedRows == "1" || info_obtenida == "2"){
                         response.send("usuario_eliminado");
                     }else{
                         response.send("error_vuelva_luego");
@@ -300,7 +306,7 @@ my_router.post("/eliminar_usuario",function(request,response) {
             }           
         });
     }
-
+    
     
 });
 
@@ -320,13 +326,71 @@ my_router.post("/eliminar_usuario",function(request,response) {
 my_router.get("/main",function(request,response) {
     //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
     if (ingreso) {
-        console.log("success_entry");
+        console.log("success_entry_user".red.bgYellow);
         response.sendFile( path.join(__dirname, "..", "/public/main.html") );
     } else {
         response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
         response.redirect('/');
     }
 });
+
+
+
+
+//-----------------------------------------MAIN LOGIN TO ADMIN-----------------------------------------------
+my_router.get("/admin",function(request,response) {
+    //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
+    if (ingreso) {
+        console.log("success_entry_admin".red.bgYellow);
+        response.sendFile( path.join(__dirname, "..", "/public/admin.html") );
+    } else {
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/');
+    }
+});
+
+
+my_router.post("/admin",function(request,response) {
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "admin.js", el cual tiene toda la info obtenida de usuarios de mysql
+    if (data.first_access == "yes"){
+        // var vector_usuarios = [];
+        // vector_usuarios[0] ={
+        //     nombre : "Test nombre",
+        //     apellido : "Test appellido",
+        //     usuario : "Test usuario",
+        //     password : "Test password",
+        //     edad : "Test edad",
+        //     sexo : "Test sexo",
+        //     pais : "Test pais",
+        //     perfil : "Test perfil",
+        // }
+        
+        //Hacemos QUERY para obtener info de todos los usuarios de la base de datos de Mysql
+        con.query('SELECT * FROM iot_taller_final.usuarios;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+            // console.log( info_obtenida.length );
+
+            //Mandamaos objeto con la info obtenida por el QUERY
+            response.send( info_obtenida );
+        });
+        
+
+
+    }else{
+
+    }
+
+    
+});
+
+
+
 
 
 
