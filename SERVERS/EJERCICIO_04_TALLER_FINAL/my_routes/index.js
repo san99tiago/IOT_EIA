@@ -274,7 +274,6 @@ my_router.post("/eliminar_usuario",function(request,response) {
         response.send("usuario:" + usuario_actual );
     }else{
 
-        //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
         con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
             
             //Creamos un objeto para recibir info de MySQL
@@ -357,17 +356,6 @@ my_router.post("/admin",function(request,response) {
     
     //Si es primer acceso como tal, cargamos objeto para enviar hacia "admin.js", el cual tiene toda la info obtenida de usuarios de mysql
     if (data.first_access == "yes"){
-        // var vector_usuarios = [];
-        // vector_usuarios[0] ={
-        //     nombre : "Test nombre",
-        //     apellido : "Test appellido",
-        //     usuario : "Test usuario",
-        //     password : "Test password",
-        //     edad : "Test edad",
-        //     sexo : "Test sexo",
-        //     pais : "Test pais",
-        //     perfil : "Test perfil",
-        // }
         
         //Hacemos QUERY para obtener info de todos los usuarios de la base de datos de Mysql
         con.query('SELECT * FROM iot_taller_final.usuarios;', function(error, result, fields) { 
@@ -376,13 +364,85 @@ my_router.post("/admin",function(request,response) {
             var info_obtenida = result;
             // console.log( info_obtenida.length );
 
-            //Mandamaos objeto con la info obtenida por el QUERY
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con todos los usuarios)
             response.send( info_obtenida );
         });
-        
-
-
     }else{
+        if (data.admin_que_hacer == "admin_eliminar_usuario"){
+            //ELIMINAR USUARIO
+            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
+                
+                //Creamos un objeto para recibir info de MySQL
+                var info_obtenida = {};
+                
+                //almacenamos fila recibida  y la mostramos en terminal
+                var info_obtenida =result; 
+                console.log(info_obtenida);
+                
+                //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
+                if (info_obtenida.length > 0) {
+                    
+                    con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.admin_usuario_elegido], function(error, result, fields) { 
+        
+                        //Cargamos info de respuesta query
+                        info_obtenida = result;
+                        console.log(info_obtenida);
+        
+                        //Unicamente indicamos que usuario se creo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+                        if (info_obtenida.affectedRows == "1" || info_obtenida == "2"){
+                            response.send("datos_actualizados_ok");
+                        }else{
+                            response.send("error_datos_usuario");
+                        }
+        
+                    });
+                }else{   
+                    response.send('no_existe_usuario');
+                }           
+            });
+
+        }
+        else if (data.admin_que_hacer == "admin_actualizar_dato_usuario"){
+            
+            //ACTUALIZAR DATO ESPECIFICADO DESDE OPCIONES DE PAGINA WEB
+            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
+                
+                //Creamos un objeto para recibir info de MySQL
+                var info_obtenida = {};
+                
+                //almacenamos fila recibida  y la mostramos en terminal
+                var info_obtenida =result; 
+                console.log(info_obtenida);
+
+                //Obtenemos ID del usuario a editar (para no tener problemas con cambios de datos y privacidad de Mysql)
+                var ID_actual = info_obtenida[0].id;
+                console.log(ID_actual);
+                
+                //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
+                if (info_obtenida.length > 0) {
+                    
+                    con.query('UPDATE iot_taller_final.usuarios SET '+ data.admin_dato_cambiar + '= ? WHERE (id = ?)', [ data.admin_nuevo_dato , ID_actual], function(error, result, fields) { 
+        
+                        //Cargamos info de respuesta query
+                        info_obtenida = result;
+                        console.log(info_obtenida);
+                        console.log(error);
+        
+                        //Unicamente indicamos que usuario se actualizo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+                        if (error){
+                            response.send("error_datos_usuario");
+                        }else{
+                            response.send("datos_actualizados_ok");
+                        }
+        
+                    });
+                }else{   
+                    response.send('no_existe_usuario');
+                }           
+            });
+
+
+        }
 
     }
 
