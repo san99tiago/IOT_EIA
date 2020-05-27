@@ -326,12 +326,53 @@ my_router.get("/main",function(request,response) {
     //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
     if (ingreso) {
         console.log("success_entry_user".red.bgYellow);
+        //Enviamos ultimo dato realizado con POST desde el ESP8266 al servidor (objeto con info)
+        response.send( ULTIMO_DATO_TEMP_HUM );
         response.sendFile( path.join(__dirname, "..", "/public/main.html") );
+
     } else {
         response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
         response.redirect('/');
     }
 });
+
+
+my_router.post("/main",function(request,response) {
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "admin.js", el cual tiene toda la info obtenida de usuarios de mysql
+    if (data.first_access == "yes"){
+        
+        // //Hacemos QUERY para obtener info de todos los usuarios de la base de datos de Mysql
+        // con.query('SELECT * FROM iot_taller_final.usuarios;', function(error, result, fields) { 
+        
+        //     //Cargamos info de respuesta query
+        //     var info_obtenida = result;
+
+        //     //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con todos los usuarios)
+        //     response.send( info_obtenida );
+        // });
+
+    }else{
+        // if (data.admin_que_hacer == "admin_eliminar_usuario"){
+
+        // }
+        // else if (){
+            
+        // }
+
+    }
+
+    
+});
+
+
+
+
+
+
 
 
 
@@ -457,8 +498,11 @@ my_router.post("/admin",function(request,response) {
 
 
 
-
 //------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
+//Variable para almacenar ultimo dato de llegada por parte del ESP8266 (enviado hacia el servidor)
+var ULTIMO_DATO_TEMP_HUM = {};
+
+
 my_router.post("/esp_post" ,function( request , response ) {
 
     let data = request.body;
