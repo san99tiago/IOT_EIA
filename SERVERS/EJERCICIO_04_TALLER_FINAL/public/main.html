@@ -26,7 +26,9 @@
 
         <title>LOGIN MAIN</title>
     </head>
-    <body>
+
+
+    <body onload="mostrar_tabla_datos()" >
 
         <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
         <h1 class="container-fluid animated  bounceInLeft">PÁGINA DE SANTI DE MONITOREO DE TEMPERATURA Y HUMEDAD</h1>
@@ -68,6 +70,24 @@
             </div>
         </div>
 
+        <br><br>
+        
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <table id="tabla_datos_dinamica">
+                <thead>                    
+                    <tr>
+                        <th>ID</th>
+                        <th>TEMPERATURA</th>
+                        <th>HUMEDAD</th>
+                        <th>FECHA</th>
+                    </tr>
+                </thead>
+                <!-- NOTA: <tbody> nos sirve para aprovecharnos de JQUERY y llenar tabla (ver "admin.js" para ver proceso) -->
+                <tbody>
+                </tbody>
+            </table>
+        </div>
 
 
 
