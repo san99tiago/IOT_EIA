@@ -50,6 +50,12 @@ my_router.get("/" ,function( request , response ) {
 //Principal path para redireccionar al "/login"
 my_router.get("/login" ,function( request , response ) {
 
+
+
+
+
+
+
     ingreso = 0; //Reseteamos variable ingreso (forma de cerrar sesion desde "main.js")
     usuario_actual = ""; //Reseteamos el nombre del usuario actual en la session
 
@@ -327,7 +333,6 @@ my_router.get("/main",function(request,response) {
     if (ingreso) {
         console.log("success_entry_user".red.bgYellow);
         //Enviamos ultimo dato realizado con POST desde el ESP8266 al servidor (objeto con info)
-        response.send( ULTIMO_DATO_TEMP_HUM );
         response.sendFile( path.join(__dirname, "..", "/public/main.html") );
 
     } else {
@@ -345,15 +350,15 @@ my_router.post("/main",function(request,response) {
     //Si es primer acceso como tal, cargamos objeto para enviar hacia "admin.js", el cual tiene toda la info obtenida de usuarios de mysql
     if (data.first_access == "yes"){
         
-        // //Hacemos QUERY para obtener info de todos los usuarios de la base de datos de Mysql
-        // con.query('SELECT * FROM iot_taller_final.usuarios;', function(error, result, fields) { 
+        //Hacemos QUERY para obtener info de todos los dtos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_taller_final.tabla_datos;', function(error, result, fields) { 
         
-        //     //Cargamos info de respuesta query
-        //     var info_obtenida = result;
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
 
-        //     //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con todos los usuarios)
-        //     response.send( info_obtenida );
-        // });
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con todos los usuarios)
+            response.send( info_obtenida );
+        });
 
     }else{
         // if (data.admin_que_hacer == "admin_eliminar_usuario"){
@@ -454,14 +459,14 @@ my_router.post("/admin",function(request,response) {
                 //almacenamos fila recibida  y la mostramos en terminal
                 var info_obtenida =result; 
                 console.log(info_obtenida);
-
-                //Obtenemos ID del usuario a editar (para no tener problemas con cambios de datos y privacidad de Mysql)
-                var ID_actual = info_obtenida[0].id;
-                console.log(ID_actual);
                 
                 //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
                 if (info_obtenida.length > 0) {
-                    
+
+                    //Obtenemos ID del usuario a editar (para no tener problemas con cambios de datos y privacidad de Mysql)
+                    var ID_actual = info_obtenida[0].id;
+                    console.log(ID_actual);
+        
                     con.query('UPDATE iot_taller_final.usuarios SET '+ data.admin_dato_cambiar + '= ? WHERE (id = ?)', [ data.admin_nuevo_dato , ID_actual], function(error, result, fields) { 
         
                         //Cargamos info de respuesta query
@@ -508,16 +513,48 @@ my_router.post("/esp_post" ,function( request , response ) {
     let data = request.body;
 
     //En caso de que llegue algo que NO este vacio
-    if (data != ""){
+    if (data.temp != "" && data.hum != ""){
         console.log(data);
 
-        var id = data.device_id;
+        //Obtenemos datos de tempertura y humedad desde el post obtenido
         var temp = data.temp;
         var hum = data.hum;
 
-            
-        response.status(200);
-        response.send("POST_RECIBIDO_OK");
+        //Generamos datos de fecha para el servidor
+        var d = new Date()
+        console.log( d.getFullYear().toString().bgGreen );
+        console.log( ( d.getMonth()+1).toString().bgGreen );
+        console.log( d.getDate().toString().bgGreen );
+        console.log( d.getHours().toString().bgGreen );
+        console.log( d.getMinutes().toString().bgGreen );
+
+        var anno = d.getFullYear().toString() ;
+        var mes =  ( d.getMonth()+1 ).toString() ;
+        var dia =  d.getDate().toString() ;
+        var hora =  d.getHours().toString() ;
+        var minuto = d.getMinutes().toString() ;
+
+        //Realizamos query para agregar datos recibidos a la base de datos
+        con.query('INSERT INTO iot_taller_final.tabla_datos (temp, hum, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?, ?);', 
+        [ temp , hum, anno, mes, dia, hora, minuto], function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            info_obtenida = result;
+            console.log(info_obtenida);
+
+            //Unicamente indicamos que usuario se actualizo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+            if (error){
+                response.send("error_post");
+            }else{
+                response.status(200);
+                response.send("post_recibido_ok");
+            }
+
+        });
+
+        
+
+
 
     }else{
         response.status(400);
