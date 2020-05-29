@@ -29,18 +29,26 @@ h1 {
     margin:0;
 }
 
+h2 {
+    text-align: center;
+    width:100%;
+    margin:0;
+    font-family: 'Bitter', serif;
+}
+
 h3 {
     background-color: #fee440;
     text-align: left;
     padding: 15px;
     width:100%;
     margin:0;
-
-
 }
 
 p {
     text-align: justify;
+    font-family: cursive;;
+    font-size: large;
+    font-weight: bolder;
 
 }
 h4 , h2 {
