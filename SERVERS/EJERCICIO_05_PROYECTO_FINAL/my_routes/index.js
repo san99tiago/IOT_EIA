@@ -27,34 +27,42 @@ var con = mysql.createConnection({
     host: "localhost", 
     user: "root",
     password: "coco", 
-    database: "iot_taller_final" //Base de datos
+    database: "iot_proyecto_final" //Base de datos
 });
+
 
 
 //--------------------------------PROCESAMIENTO DE RUTAS----------------------------------
 //-----------------------------------------------------------------------------------------
-
-
-//----------------------------------LOGIN---------------------------------------------------
 //Variables importantes para saber usuario actual y verificar si ya ingreso correctamente
 var usuario_actual = "";
 var ingreso = false;
 
-//Principal path para redireccionar al "/login"
+
+//----------------------------------HOME---------------------------------------------------
+
+
+//Principal path para redireccionar  "/home"
 my_router.get("/" ,function( request , response ) {
-    //Redirigimos archivo html hacia login.html
-    response.sendFile( path.join(__dirname,"..", "/public/login.html") );
-    response.redirect('/login');
+    response.redirect("/home");
 });
 
+
+//Principal path para redireccionar  "/home"
+my_router.get("/home" ,function( request , response ) {
+
+    ingreso = 0; //Reseteamos variable ingreso (forma de cerrar sesion desde "home.js")
+    usuario_actual = ""; //Reseteamos el nombre del usuario actual en la session
+
+    //Redirigimos archivo html hacia login.html
+    response.sendFile( path.join(__dirname,"..", "/public/home.html") );
+    console.log("home_entry".green);
+});
+
+
+//----------------------------------LOGIN---------------------------------------------------
 //Principal path para redireccionar al "/login"
 my_router.get("/login" ,function( request , response ) {
-
-
-
-
-
-
 
     ingreso = 0; //Reseteamos variable ingreso (forma de cerrar sesion desde "main.js")
     usuario_actual = ""; //Reseteamos el nombre del usuario actual en la session
@@ -71,7 +79,7 @@ my_router.post("/login",function(request,response) {
     console.log(data);
 
     //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-    con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario, data.password], function(error, result, fields) { 
+    con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario, data.password], function(error, result, fields) { 
         
         //Creamos un objeto para recibir info de MySQL
         var info_obtenida = {};
@@ -140,7 +148,7 @@ my_router.post("/change_password",function(request,response) {
             console.log("CONTRASENNAS IGUALES");
 
             //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
+            con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? AND password = ?', [data.actual_usuario, data.actual_password], function(error, results, fields) { 
                 
                 //Creamos un objeto para recibir info de MySQL
                 var info_obtenida = {};
@@ -153,7 +161,7 @@ my_router.post("/change_password",function(request,response) {
                 if (info_obtenida.length > 0) {
 
                     //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-                    con.query('UPDATE iot_taller_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
+                    con.query('UPDATE iot_proyecto_final.usuarios SET `password` = ? WHERE (`usuario` = ? )', [data.new_password_1, data.actual_usuario], function(error, results, fields) { 
                         
                         //Creamos un objeto para recibir info de MySQL
                         var info_obtenida = {};
@@ -200,7 +208,7 @@ my_router.post("/crear_usuario",function(request,response) {
         console.log("CONTRASENNAS IGUALES".green);
 
         //QUERY para verificar que usuario NO exista previamente (evitar 2 nombres de usuario iguales)
-        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.nuevo_usuario], function(error, results, fields) { 
+        con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? ', [data.nuevo_usuario], function(error, results, fields) { 
             
             //Creamos un objeto para recibir info de MySQL
             var info_obtenida = {};
@@ -218,7 +226,7 @@ my_router.post("/crear_usuario",function(request,response) {
                     console.log("FALTAN DATOS POR LLENAR DE LA INFO".red)
                 }else{
                     //Hacemos un query al MySQL pidiendo acceso a test_table_1 (usuario y password se remplazan por "user" y "pass" (sintaxis remplazo))
-                    con.query('INSERT INTO iot_taller_final.usuarios (`nombre`, `apellido`, `usuario`, `password`, `edad`, `sexo`, `pais`, `perfil`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', [data.nuevo_nombre, data.nuevo_apellido , data.nuevo_usuario, data.nuevo_password_2, data.nuevo_edad, data.nuevo_sexo, data.nuevo_pais, data.nuevo_perfil], function(error, results, fields) { 
+                    con.query('INSERT INTO iot_proyecto_final.usuarios (`nombre`, `apellido`, `usuario`, `password`, `edad`, `sexo`, `pais`, `perfil`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', [data.nuevo_nombre, data.nuevo_apellido , data.nuevo_usuario, data.nuevo_password_2, data.nuevo_edad, data.nuevo_sexo, data.nuevo_pais, data.nuevo_perfil], function(error, results, fields) { 
                         
                         //Creamos un objeto para recibir info de MySQL
                         var info_obtenida = {};
@@ -280,7 +288,7 @@ my_router.post("/eliminar_usuario",function(request,response) {
         response.send("usuario:" + usuario_actual );
     }else{
 
-        con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
+        con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? AND password = ?', [data.usuario_eliminar, data.password_eliminar], function(error, result, fields) { 
             
             //Creamos un objeto para recibir info de MySQL
             var info_obtenida = {};
@@ -292,7 +300,7 @@ my_router.post("/eliminar_usuario",function(request,response) {
             //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
             if (info_obtenida.length > 0) {
                 
-                con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.usuario_eliminar], function(error, result, fields) { 
+                con.query('DELETE FROM iot_proyecto_final.usuarios WHERE (usuario = ?);', [data.usuario_eliminar], function(error, result, fields) { 
     
                     //Cargamos info de respuesta query
                     info_obtenida = result;
@@ -351,7 +359,7 @@ my_router.post("/main",function(request,response) {
     if (data.first_access == "yes"){
         
         //Hacemos QUERY para obtener info de todos los dtos de la base de datos de Mysql
-        con.query('SELECT * FROM iot_taller_final.tabla_datos;', function(error, result, fields) { 
+        con.query('SELECT * FROM iot_proyecto_final.tabla_datos;', function(error, result, fields) { 
         
             //Cargamos info de respuesta query
             var info_obtenida = result;
@@ -404,7 +412,7 @@ my_router.post("/admin",function(request,response) {
     if (data.first_access == "yes"){
         
         //Hacemos QUERY para obtener info de todos los usuarios de la base de datos de Mysql
-        con.query('SELECT * FROM iot_taller_final.usuarios;', function(error, result, fields) { 
+        con.query('SELECT * FROM iot_proyecto_final.usuarios;', function(error, result, fields) { 
         
             //Cargamos info de respuesta query
             var info_obtenida = result;
@@ -416,7 +424,7 @@ my_router.post("/admin",function(request,response) {
     }else{
         if (data.admin_que_hacer == "admin_eliminar_usuario"){
             //ELIMINAR USUARIO
-            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
+            con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
                 
                 //Creamos un objeto para recibir info de MySQL
                 var info_obtenida = {};
@@ -428,7 +436,7 @@ my_router.post("/admin",function(request,response) {
                 //Validamos usuario y aplicamos query para eliminarlo de la base de datos!!!
                 if (info_obtenida.length > 0) {
                     
-                    con.query('DELETE FROM iot_taller_final.usuarios WHERE (usuario = ?);', [data.admin_usuario_elegido], function(error, result, fields) { 
+                    con.query('DELETE FROM iot_proyecto_final.usuarios WHERE (usuario = ?);', [data.admin_usuario_elegido], function(error, result, fields) { 
         
                         //Cargamos info de respuesta query
                         info_obtenida = result;
@@ -451,7 +459,7 @@ my_router.post("/admin",function(request,response) {
         else if (data.admin_que_hacer == "admin_actualizar_dato_usuario"){
             
             //ACTUALIZAR DATO ESPECIFICADO DESDE OPCIONES DE PAGINA WEB
-            con.query('SELECT * FROM iot_taller_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
+            con.query('SELECT * FROM iot_proyecto_final.usuarios WHERE usuario = ? ', [data.admin_usuario_elegido], function(error, result, fields) { 
                 
                 //Creamos un objeto para recibir info de MySQL
                 var info_obtenida = {};
@@ -467,7 +475,7 @@ my_router.post("/admin",function(request,response) {
                     var ID_actual = info_obtenida[0].id;
                     console.log(ID_actual);
         
-                    con.query('UPDATE iot_taller_final.usuarios SET '+ data.admin_dato_cambiar + '= ? WHERE (id = ?)', [ data.admin_nuevo_dato , ID_actual], function(error, result, fields) { 
+                    con.query('UPDATE iot_proyecto_final.usuarios SET '+ data.admin_dato_cambiar + '= ? WHERE (id = ?)', [ data.admin_nuevo_dato , ID_actual], function(error, result, fields) { 
         
                         //Cargamos info de respuesta query
                         info_obtenida = result;
@@ -535,7 +543,7 @@ my_router.post("/esp_post" ,function( request , response ) {
         var minuto = d.getMinutes().toString() ;
 
         //Realizamos query para agregar datos recibidos a la base de datos
-        con.query('INSERT INTO iot_taller_final.tabla_datos (temp, hum, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?, ?);', 
+        con.query('INSERT INTO iot_proyecto_final.tabla_datos (temp, hum, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?, ?);', 
         [ temp , hum, anno, mes, dia, hora, minuto], function(error, result, fields) { 
         
             //Cargamos info de respuesta query
