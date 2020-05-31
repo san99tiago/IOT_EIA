@@ -24,7 +24,7 @@ app.use( express.static("public") );
 
 //-------------------------ACTIVAMOS FUNCIONALIDAD DE ROUTER------------------------
 //Ahora "modularizamos" nuestras rutas con carpeta "my_routes" (orden) 
-app.use( require('./my_routes/') );
+app.use( require('./my_routes/index.js') );
 
 
 
