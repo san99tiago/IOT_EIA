@@ -80,6 +80,7 @@ td {
 }
 button {
     background-color: aquamarine;
+    font-weight: bolder;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 10px;
@@ -88,6 +89,11 @@ button:hover {
     background-color: darkslateblue;
     color: white;
 }
+.boton-grande {
+    width: 60%;
+    height: 10%;
+}
+
 
 input {
     margin-right: 10px;

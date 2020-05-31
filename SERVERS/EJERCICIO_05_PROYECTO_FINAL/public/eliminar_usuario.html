@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO, MAYO 2020 -->
+<!-- CODIGO HTML PARA ELIMINAR USUARIO (EN DB MYSQL) -->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+
+        <title>ELIMINAR USUARIO</title>
+    </head>
+
+    <!-- OJO: funcion llamada se llama y se corre 1 vez al correr pagina (al inicio) -->
+    <!-- En este caso nos permite actualizar el nombre del usuario correctamente (ver JavaScript) -->
+    <body onload="funcion_cargar_pagina()">
+
+
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="container-fluid animated  bounceInLeft">ELIMINA TU USUARIO</h1>
+
+        <hr class="no-margin animated bounceInDown agregar-delay-2">
+
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid">
+            <!-- SECCION FILA : archivo principal de info para cambio de datos de usuario-->
+            <div class ="row animated  flipInX agregar-delay-2">
+                <h3>Eliminar datos de tu cuenta por siempre, NO hay vuelta atrás...</h3>
+            </div>  
+        </div>
+        
+        <!-- Agregamos linea de separacion entre estas dos secciones -->
+        <hr class="no-margin animated bounceInDown agregar-delay-2">
+        <br>
+
+
+        <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid animated flipInX agregar-delay-2">
+
+            <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+            <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+            <div class="col-12" >
+                Usuario:
+                <input type="text" id="usuario_eliminar"  placeholder="Usuario" readonly style="position:relative; left:95px;">
+            </div>
+
+            <br>
+
+            <div class="col-12">
+                Constraseña actual:
+                <input type="password" id="password_eliminar" placeholder="Password" style="position:relative; left:15px;">
+            </div>
+
+            <br>
+
+            <div class="col-12">
+                Está seguro (NO hay vuelta atrás):
+                <input class="espacio-izq" type="checkbox" onclick="funcion_confirmar()">
+            </div>
+            <br>
+
+            <div class="col-12">
+                <!-- Utilizaremos id de volver para procesar esto en JS -->
+                <button id="volver_app">Volver</button>
+                
+                <!-- Utilizaremos id de change_password_button para procesar esto en JS -->
+                <button id="ejecutar_eliminar_usuario">Eliminar Usuario</button>
+            </div>  
+
+        </div>
+
+        <!-- Agregamos change_password.js para procesar re-direccionamiento -->
+        <script src="js/eliminar_usuario.js"></script>
+
+        <!-- Jquery plugins -->
+        <script src="jquery/jquery.min.js"></script>
+        <script src="jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Jquery plugins for cool alerts -->
+        <link href="./jquery/jquery.alerts.css" rel="stylesheet" type="text/css" />  
+        <script src="./jquery/jquery.alerts.js"></script>        
+
+
+    </body>
+
+
+</html>
