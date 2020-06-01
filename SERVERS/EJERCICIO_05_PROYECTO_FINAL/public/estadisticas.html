@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- SANTIAGO GARCIA ARANGO, MAYO 2020 -->
-<!-- CODIGO HTML PARA "MAIN" Y CONECTARLO CON SERVIDOR -->
+<!-- CODIGO HTML PARA ESTADISTICAS GENERALES Y CONECTARLO CON SERVIDOR -->
 <html>
     <head>
         <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
@@ -26,12 +26,12 @@
         <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
         <link rel="stylesheet" href="css/animate.css">
 
-        <title>MAIN</title>
+        <title>ESTADISTICAS</title>
     </head>
 
 
     <!-- Al cargar pagina, llamamos funcion para obligar el cursor a estar en primer input del usuario -->
-    <body  onload="mostrar_tabla_datos()">
+    <body  onload="mostrar_estadisticas()">
         
         <nav class="col-12  fila-fondo  animated bounceInDown agregar-delay-1">
             <div class="row col-12">
@@ -45,7 +45,7 @@
             </div>
         
             <div class="derecha">
-                <a href="home.html"  class="navegador">SALIR</a>
+                <a href="main.html"  class="navegador">MAIN</a>
             </div>
         
         </nav>
@@ -55,87 +55,43 @@
 
         <hr class="no-margin animated bounceInDown agregar-delay-1">
         <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
-        <h1 class="container-fluid animated  bounceInLeft">PÁGINA PRINCIPAL</h1>
+        <h1 class="container-fluid animated  bounceInLeft">ESTADÍSTICAS GENERALES DE TU CULTIVO</h1>
     
         <hr class="no-margin animated bounceInDown agregar-delay-1">
 
         <br>
 
-
-        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
-        <div class="container-fluid   animated flipInX agregar-delay-2">
-            <div class="row">
-                <div class="col-12 ">
-                    <p>
-                        Estamos felices de tenerlo como nuestro cliente, gracias por su fidelidad.
-                        ¿Qué deseas hacer hoy?
-                    </p>
-                        
-                </div>
-            </div>
-        </div>
-
-        <br><br>
-
-        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
-        <div class="container-fluid   animated flipInX agregar-delay-2">
-            
-            <div class="row">
-
-                <div class="col-12  col-md-6  col-lg-4">
-                    <img src="imgs/OTRAS/NATURE_CAMERA.gif">
-                </div>
-
-                <div class="col-12  col-md-6  col-lg-8">
-                    <p>
-                        Recuerda que siempre estamos dispuestos a brindarte el mejor desempeño, gracias a nuestra tecnología de punta.<br>
-                    </p>
-
-                    <!-- Boton para redirigirnos a "Ver estadisticas generales" -->
-                    <button class="boton-grande  offset-2" id="ir_a_estadisticas" style="position:relative; top:10px;" >Estadísticas</button>
-                    <br><br>
-                    <!-- Boton para redirigirnos a "cambio de contrasenna" -->
-                    <button class="boton-grande  offset-2" id="password_change_button" style="position:relative; top:10px;" >Change Password</button>
-                    <br><br>
-                    <!-- Boton para dirigirnos a "eliminar usuario" -->
-                    <button class="boton-grande  offset-2" id="eliminar_usuario" style="position:relative; top:10px;" >Eliminar Usuario</button>
-                    <br><br>
-                    <!-- Utilizaremos id de login_button para procesar esto en JS -->
-                    <button class="boton-grande  offset-2" id="salir_usuario" style="position:relative; top:10px;" >Salir</button>
-                    <br><br>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
-        <div class="container-fluid   animated flipInY agregar-delay-2"> 
+        <div class="container-fluid   animated flipInX agregar-delay-2 col-12">
             <p>
-                <br><br>
-                ¿Sabías estos curiosos datos de la tecnología IOT?<br>
+                A continuación, puedes encontrar las estadísticas generales de tu cultivo, a lo largo del tiempo.
             </p>
-            <div class="row">
-                <div class="col-6">
-                    <img src="imgs/OTRAS/DATOS_CURIOSOS_1.JPG">
-                </div>
-                <div class="col-6">
-                    <img src="imgs/OTRAS/DATOS_CURIOSOS_2.JPG">
-                </div>
-            </div>
+        </div>        
+        
+
+        <!-- TABLA ESTADISTICAS -->
+        <div class="container-fluid   animated flipInX agregar-delay-2 col-10 offset-1">
+            <table id="tabla_datos_dinamica">
+                <thead>                    
+                    <tr>
+                        <th>VARIABLE</th>
+                        <th>PROMEDIO</th>
+                        <th>MAXIMO</th>
+                        <th>MINIMO</th>
+                        <th>TOTAL DATOS</th>
+                    </tr>
+                </thead>
+                <!-- NOTA: <tbody> nos sirve para aprovecharnos de JQUERY y llenar tabla (ver "js" para ver proceso) -->
+                <tbody>
+                </tbody>
+            </table>
         </div>
-
-        <br><br>
-
-
-
 
 
 
 
 
         <!-- Archivo para correcta conexion con JS y procesar login -->
-        <script src="./js/main.js"></script>
+        <script src="./js/estadisticas.js"></script>
         
         <!-- Jquery plugins -->
         <script src="./jquery/jquery.min.js"></script>

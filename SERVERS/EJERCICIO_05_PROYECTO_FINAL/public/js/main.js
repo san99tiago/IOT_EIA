@@ -7,6 +7,16 @@ var info_principal = {
 };
 
 
+//------------------------------BOTON ESTADITICAS----------------------------------------
+//Agregamos "EventListener" para procesar click en boton
+document.getElementById('ir_a_estadisticas').addEventListener('click', function() {
+    window.location.replace('/estadisticas')
+    
+});
+
+
+
+
 //-----------------------------BOTON DE SALIRSE-----------------------------------------------
 //Agregamos "EventListener" para procesar click en boton
 document.getElementById('salir_usuario').addEventListener('click', function() {
