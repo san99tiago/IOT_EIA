@@ -15,6 +15,10 @@ const my_router = express.Router();
 //Nos permite obtener "parent directories" para re-dirigir mejor las rutas y archivos html
 var path = require("path");
 
+//------------------------------COLORS (terminal)---------------------------
+//Package that allows us to print with colors in terminals (more fancy)
+const colors = require('colors');
+
 
 //----------------------------------MYSQL---------------------------------------
 //Forma de conectarnos a Base de Datos de MySQL (ya creada en MySQL workbench)
@@ -64,7 +68,7 @@ my_router.get("/home" ,function( request , response ) {
 //Principal path para redireccionar al "/login"
 my_router.get("/login" ,function( request , response ) {
 
-    ingreso = 0; //Reseteamos variable ingreso (forma de cerrar sesion desde "main.js")
+    ingreso = false; //Reseteamos variable ingreso (forma de cerrar sesion desde "main.js")
     usuario_actual = ""; //Reseteamos el nombre del usuario actual en la session
 
     //Redirigimos archivo html hacia login.html
@@ -504,6 +508,178 @@ my_router.post("/admin",function(request,response) {
 });
 
 
+//--------------------------------------MAIN LOGIN TO TEMPERATURA-HUMEDAD---------------------------------------------
+my_router.get("/temp_hum",function(request,response) {
+    //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
+    if (ingreso) {
+        console.log("success_entry_temp_hum".red.bgYellow);
+        response.sendFile( path.join(__dirname, "..", "/public/temp_hum.html") );
+    } else {
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/login');
+    }
+});
+
+
+my_router.post("/temp_hum",function(request,response) {
+    
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "temp_hum.js", el cual tiene toda la info obtenida de mysql
+    if (data.first_access == "yes"){
+        
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.temp_hum;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+    }
+    else if (data.first_access == "no"){
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.temp_hum;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+            // console.log( info_obtenida.length )
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+        
+
+
+    }
+
+    
+});
+
+
+
+//--------------------------------------MAIN LOGIN TO LUZ---------------------------------------------
+my_router.get("/luz",function(request,response) {
+    //Solamente se ingresa si ya hubo login correcto con MysQL
+    if (ingreso) {
+        console.log("success_entry_luz".red.bgYellow);
+        response.sendFile( path.join(__dirname, "..", "/public/luz.html") );
+    } else {
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/login');
+    }
+});
+
+
+my_router.post("/luz",function(request,response) {
+    
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "temp_hum.js", el cual tiene toda la info obtenida de mysql
+    if (data.first_access == "yes"){
+        
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.luz;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+    }
+    else if (data.first_access == "no"){
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.luz;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+            // console.log( info_obtenida.length )
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+        
+
+
+    }
+
+    
+});
+
+
+
+
+
+//--------------------------------------MAIN LOGIN TO TEMPERATURA-HUMEDAD---------------------------------------------
+my_router.get("/ph",function(request,response) {
+    //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
+    if (ingreso) {
+        console.log("success_entry_ph".red.bgYellow);
+        response.sendFile( path.join(__dirname, "..", "/public/ph.html") );
+    } else {
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/login');
+    }
+});
+
+
+my_router.post("/ph",function(request,response) {
+    
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "temp_hum.js", el cual tiene toda la info obtenida de mysql
+    if (data.first_access == "yes"){
+        
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.ph;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+    }
+    else if (data.first_access == "no"){
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.ph;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+            // console.log( info_obtenida.length )
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( info_obtenida );
+        });
+        
+
+
+    }
+
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -512,11 +688,8 @@ my_router.post("/admin",function(request,response) {
 
 
 //------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
-//Variable para almacenar ultimo dato de llegada por parte del ESP8266 (enviado hacia el servidor)
-var ULTIMO_DATO_TEMP_HUM = {};
 
-
-my_router.post("/esp_post" ,function( request , response ) {
+my_router.post("/esp_post_temp_hum" ,function( request , response ) {
 
     let data = request.body;
 
@@ -543,7 +716,7 @@ my_router.post("/esp_post" ,function( request , response ) {
         var minuto = d.getMinutes().toString() ;
 
         //Realizamos query para agregar datos recibidos a la base de datos
-        con.query('INSERT INTO iot_proyecto_final.tabla_datos (temp, hum, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?, ?);', 
+        con.query('INSERT INTO iot_proyecto_final.temp_hum (temp, hum, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?, ?);', 
         [ temp , hum, anno, mes, dia, hora, minuto], function(error, result, fields) { 
         
             //Cargamos info de respuesta query
@@ -571,6 +744,133 @@ my_router.post("/esp_post" ,function( request , response ) {
 
 
 });
+
+
+
+
+//------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
+
+my_router.post("/esp_post_luz" ,function( request , response ) {
+
+    let data = request.body;
+
+    //En caso de que llegue algo que NO este vacio
+    if (data.luz != ""){
+        console.log(data);
+
+        //Obtenemos datos de tempertura y humedad desde el post obtenido
+        var luz = data.luz;
+
+        //Generamos datos de fecha para el servidor
+        var d = new Date()
+        console.log( d.getFullYear().toString().bgGreen );
+        console.log( ( d.getMonth()+1).toString().bgGreen );
+        console.log( d.getDate().toString().bgGreen );
+        console.log( d.getHours().toString().bgGreen );
+        console.log( d.getMinutes().toString().bgGreen );
+
+        var anno = d.getFullYear().toString() ;
+        var mes =  ( d.getMonth()+1 ).toString() ;
+        var dia =  d.getDate().toString() ;
+        var hora =  d.getHours().toString() ;
+        var minuto = d.getMinutes().toString() ;
+
+        //Realizamos query para agregar datos recibidos a la base de datos
+        con.query('INSERT INTO iot_proyecto_final.luz (luz, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?);', 
+        [ luz, anno, mes, dia, hora, minuto], function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            info_obtenida = result;
+            console.log(info_obtenida);
+
+            //Unicamente indicamos que usuario se actualizo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+            if (error){
+                response.send("error_post");
+            }else{
+                response.status(200);
+                response.send("post_recibido_ok");
+            }
+
+        });
+
+        
+
+
+
+    }else{
+        response.status(400);
+        response.send("POST_ERROR");
+    }
+
+
+});
+
+
+
+
+
+//------------------------------------ESP POST RECIBIR INFO TEMP HUM------------------------------------------
+
+my_router.post("/esp_post_ph" ,function( request , response ) {
+
+    let data = request.body;
+
+    //En caso de que llegue algo que NO este vacio
+    if (data.ph != ""){
+        console.log(data);
+
+        //Obtenemos datos de tempertura y humedad desde el post obtenido
+        var ph = data.ph;
+
+        //Generamos datos de fecha para el servidor
+        var d = new Date()
+        console.log( d.getFullYear().toString().bgGreen );
+        console.log( ( d.getMonth()+1).toString().bgGreen );
+        console.log( d.getDate().toString().bgGreen );
+        console.log( d.getHours().toString().bgGreen );
+        console.log( d.getMinutes().toString().bgGreen );
+
+        var anno = d.getFullYear().toString() ;
+        var mes =  ( d.getMonth()+1 ).toString() ;
+        var dia =  d.getDate().toString() ;
+        var hora =  d.getHours().toString() ;
+        var minuto = d.getMinutes().toString() ;
+
+        //Realizamos query para agregar datos recibidos a la base de datos
+        con.query('INSERT INTO iot_proyecto_final.ph (ph, anno, mes, dia, hora, minuto) VALUES (?, ?, ?, ?, ?, ?);', 
+        [ ph, anno, mes, dia, hora, minuto], function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            info_obtenida = result;
+            console.log(info_obtenida);
+
+            //Unicamente indicamos que usuario se actualizo si la fila afectada de la respuesta corresponde a 1 (osea cambio exitoso)
+            if (error){
+                response.send("error_post");
+            }else{
+                response.status(200);
+                response.send("post_recibido_ok");
+            }
+
+        });
+
+        
+
+
+
+    }else{
+        response.status(400);
+        response.send("POST_ERROR");
+    }
+
+
+});
+
+
+
+
+
+
 
 
 
