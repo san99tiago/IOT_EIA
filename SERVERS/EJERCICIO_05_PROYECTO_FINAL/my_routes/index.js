@@ -670,6 +670,146 @@ my_router.post("/ph",function(request,response) {
 
 
 
+//--------------------------------------MAIN LOGIN TO ESTADISTICAS---------------------------------------------
+my_router.get("/estadisticas",function(request,response) {
+    //Solamente se ingresa al cuestionario si ya hubo login correcto con MysQL
+    if (ingreso) {
+        console.log("success_entry_ph".red.bgYellow);
+        response.sendFile( path.join(__dirname, "..", "/public/estadisticas.html") );
+    } else {
+        response.sendFile( path.join(__dirname ,"..", "/public/login.html") );
+        response.redirect('/login');
+    }
+});
+
+
+my_router.post("/estadisticas",function(request,response) {
+    
+    
+    var data = request.body;
+    console.log(data);
+    
+    //Si es primer acceso como tal, cargamos objeto para enviar hacia "temp_hum.js", el cual tiene toda la info obtenida de mysql
+    if (data.first_access == "yes"){
+
+        //Variable para enviar toda la info en un objeto 
+        var objeto_total = {};
+
+
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.temp_hum;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+
+
+            //Variables para estadisticas temp-hum
+            var total_temp = 0;
+            var total_hum = 0;
+            var cantidad_datos_temp = 0;
+            var cantidad_datos_hum = 0;
+            var promedio_temp = 0;
+            var promedio_hum = 0;
+            var max_temp = 0;
+            var max_hum = 0;
+            var min_temp = 10000;
+            var min_hum = 10000;
+
+            if(info_obtenida.length > 0){
+
+                for (i=0 ; i<info_obtenida.length ; i++){
+
+                    total_temp = total_temp + parseInt( info_obtenida[i].temp );
+                    total_hum = total_hum + parseInt( info_obtenida[i].hum );
+                    if (info_obtenida[i].temp > max_temp){
+                        max_temp = info_obtenida[i].temp;
+                    }
+                    if (info_obtenida[i].temp < min_temp){
+                        min_temp = info_obtenida[i].temp
+                    }
+    
+                    if (info_obtenida[i].hum > max_hum){
+                        max_hum = info_obtenida[i].hum;
+                    }
+                    if (info_obtenida[i].hum < min_hum){
+                        min_hum = info_obtenida[i].hum
+                    }
+                }
+                cantidad_datos_temp = info_obtenida.length;
+                cantidad_datos_hum = info_obtenida.length;
+                promedio_temp = total_temp/cantidad_datos_temp;
+                promedio_hum = total_hum/cantidad_datos_hum;
+
+
+                objeto_total.promedio_temp = promedio_temp;
+                objeto_total.max_temp = max_temp;
+                objeto_total.min_temp = min_temp;
+                objeto_total.cantidad_datos_temp = cantidad_datos_temp;
+
+                objeto_total.promedio_hum = promedio_hum;
+                objeto_total.max_hum = max_hum;
+                objeto_total.min_hum = min_hum;
+                objeto_total.cantidad_datos_hum = cantidad_datos_hum;
+
+            }
+
+
+
+        });
+
+        //Hacemos QUERY para obtener info de todos los datos de la base de datos de Mysql
+        con.query('SELECT * FROM iot_proyecto_final.ph;', function(error, result, fields) { 
+        
+            //Cargamos info de respuesta query
+            var info_obtenida = result;
+
+
+            //Variables para estadisticas temp-hum
+            var total_ph = 0;
+            var cantidad_datos_ph = 0;
+            var promedio_ph = 0;
+            var max_ph = 0;
+            var min_ph = 10000;
+
+            if(info_obtenida.length > 0){
+
+                for (i=0 ; i<info_obtenida.length ; i++){
+
+                    total_ph= total_ph + parseInt( info_obtenida[i].ph );
+                    if (info_obtenida[i].ph > max_ph){
+                        max_ph = info_obtenida[i].ph;
+                    }
+                    if (info_obtenida[i].ph < min_ph){
+                        min_ph = info_obtenida[i].ph
+                    }
+
+                }
+                cantidad_datos_ph = info_obtenida.length;
+                promedio_ph = total_ph/cantidad_datos_ph;
+
+
+                objeto_total.promedio_ph = promedio_ph;
+                objeto_total.max_ph = max_ph;
+                objeto_total.min_ph = min_ph;
+                objeto_total.cantidad_datos_ph = cantidad_datos_ph;
+
+            }
+
+            console.log( objeto_total );
+
+            //Mandamaos objeto con la info obtenida por el QUERY (es decir, un vector con info)
+            response.send( objeto_total );
+        });
+
+
+    }
+    
+    
+});
+
+
+
+
 
 
 
