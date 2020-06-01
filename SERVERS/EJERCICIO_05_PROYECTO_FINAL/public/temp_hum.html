@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO, MAYO 2020 -->
+<!-- CODIGO HTML PARA TEMP_HUM Y CONECTARLO CON SERVIDOR -->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+        <title>TEMP-HUM</title>
+    </head>
+
+
+    <!-- Al cargar pagina, llamamos funcion para obligar el cursor a estar en primer input del usuario -->
+    <body  onload="mostrar_tabla_dinamica()">
+        
+        <nav class="col-12  fila-fondo  animated bounceInDown agregar-delay-1">
+            <div class="row col-12">
+        
+                <a href="home.html" class="navegador" >HOME</a >
+                <a href="temp_hum.html" class="navegador">TEMP-HUM</a>
+                <a href="luz.html" class="navegador">LUZ</a>
+                <a href="ph.html" class="navegador">PH</a>
+                <a href="contact.html" class="navegador" target="_blank">CONTACT</a>
+        
+            </div>
+        
+            <div class="derecha">
+                <a href="main.html"  class="navegador">MAIN</a>
+            </div>
+        
+        </nav>
+
+        <!-- Este parrafo tiene la funcionalidad de separar correctamente todo el NAVBAR -->
+        <p class="no-margin" style="height: 70px;background-color: #fee440;border:0;padding:0" > </p>
+
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="container-fluid animated  bounceInLeft">ANÁLISIS DE TEMPERATURA Y HUMEDAD</h1>
+    
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+
+        <br>
+
+
+
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <p>
+                A continuación, ingrese los filtros que desea aplicar para la búsqueda de información.
+            </p>
+
+            <br><br>
+
+
+            <div class="row">
+
+                <div class="col-4">
+                    <p>
+                        Fecha inicio:
+                    </p>
+
+                    Año:
+                    <input type="text" id="fecha_1_anno" placeholder="Año" style="position:relative; left:11px;">
+                    
+                    <br><br>
+
+                    Mes:
+                    <select id="fecha_1_mes"  value="Mayo"  style="position:relative; left:10px;">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre  </option>
+                    </select>
+
+                    <br><br>
+
+                    Día:
+                    <select id="fecha_1_dia"  value="1"  style="position:relative; left:15px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30&nbsp&nbsp&nbsp</option>
+                    </select>
+    
+
+                    <br><br>
+
+                    Hora:
+                    <select id="fecha_1_hora"  value="1"  style="position:relative; left:5px;">
+                        <option value="0">0h</option>
+                        <option value="1">1h</option>
+                        <option value="2">2h</option>
+                        <option value="3">3h</option>
+                        <option value="4">4h</option>
+                        <option value="5">5h</option>
+                        <option value="6">6h</option>
+                        <option value="7">7h</option>
+                        <option value="8">8h</option>
+                        <option value="9">9h</option>
+                        <option value="10">10h</option>
+                        <option value="11">11h</option>
+                        <option value="12">12h</option>
+                        <option value="13">13h</option>
+                        <option value="14">14h</option>
+                        <option value="15">15h</option>
+                        <option value="16">16h</option>
+                        <option value="17">17h</option>
+                        <option value="18">18h</option>
+                        <option value="19">19h</option>
+                        <option value="20">20h</option>
+                        <option value="21">21h</option>
+                        <option value="22">22h</option>
+                        <option value="23">23&nbsp&nbsp&nbsp</option>
+                    </select>
+
+
+
+                </div>
+
+
+
+
+                <div class="col-4">
+                    <p>
+                        Fecha Fin:
+                    </p>
+
+                    Año:
+                    <input type="text" id="fecha_2_anno" placeholder="Año" style="position:relative; left:11px;">
+                    
+                    <br><br>
+
+                    Mes:
+                    <select id="fecha_2_mes"  value="Mayo"  style="position:relative; left:10px;">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre  </option>
+                    </select>
+
+                    <br><br>
+
+                    Día:
+                    <select id="fecha_2_dia"  value="1"  style="position:relative; left:15px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30&nbsp&nbsp&nbsp</option>
+                    </select>
+    
+
+
+                    <br><br>
+
+                    Hora:
+                    <select id="fecha_2_hora"  value="1"  style="position:relative; left:5px;">
+                        <option value="0">0h</option>
+                        <option value="1">1h</option>
+                        <option value="2">2h</option>
+                        <option value="3">3h</option>
+                        <option value="4">4h</option>
+                        <option value="5">5h</option>
+                        <option value="6">6h</option>
+                        <option value="7">7h</option>
+                        <option value="8">8h</option>
+                        <option value="9">9h</option>
+                        <option value="10">10h</option>
+                        <option value="11">11h</option>
+                        <option value="12">12h</option>
+                        <option value="13">13h</option>
+                        <option value="14">14h</option>
+                        <option value="15">15h</option>
+                        <option value="16">16h</option>
+                        <option value="17">17h</option>
+                        <option value="18">18h</option>
+                        <option value="19">19h</option>
+                        <option value="20">20h</option>
+                        <option value="21">21h</option>
+                        <option value="22">22h</option>
+                        <option value="23">23h&nbsp&nbsp&nbsp</option>
+                    </select>
+
+    
+                    
+                    <br><br>
+                </div>
+
+                <div class="col-4">
+                    <img src="imgs/OTRAS/GIF_INSPECTOR.gif"  style="width:50%;height:50%">
+                </div>
+
+
+
+
+
+                
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+            </div>
+        </div>
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <!-- Utilizaremos id de change_password_button para procesar esto en JS -->
+            <button class="boton-grande offset-2"  id="filtrar_datos">Buscar datos filtrados</button>
+        </div>
+
+
+        <br>
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+        <br>
+
+        <!-- TABLA PRINCIPAL -->
+        <div class="container-fluid   animated flipInX agregar-delay-2 col-10 offset-1">
+            <table id="tabla_datos_dinamica">
+                <thead>                    
+                    <tr>
+                        <th>ID</th>
+                        <th>TEMPERATURA</th>
+                        <th>HUMEDAD</th>
+                        <th>AÑO</th>
+                        <th>MES</th>
+                        <th>DIA</th>
+                        <th>HORA</th>
+                        <th>MINUTO</th>
+                    </tr>
+                </thead>
+                <!-- NOTA: <tbody> nos sirve para aprovecharnos de JQUERY y llenar tabla (ver "js" para ver proceso) -->
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Archivo para correcta conexion con JS y procesar login -->
+        <script src="./js/temp_hum.js"></script>
+        
+        <!-- Jquery plugins -->
+        <script src="./jquery/jquery.min.js"></script>
+        <script src="./jquery-easing/jquery.easing.min.js"></script>
+
+
+        <!-- Jquery plugins for cool alerts -->
+        <link href="./jquery/jquery.alerts.css" rel="stylesheet" type="text/css" />  
+        <script src="./jquery/jquery.alerts.js"></script>
+
+
+
+    </body>
+</html>
