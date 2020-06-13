@@ -1,0 +1,17 @@
+SANTIAGO GARCIA ARANGO
+
+1. Se debe implementar una mascara de red tipo B (255.255.0.0) porque tiene un total
+   de 16 bits, osea 2^16 = 65535 Vlanes diferentes.
+
+2. La minima es 255.255.0.0
+   La maxima es 255.255.255.255
+   Sin embargo, las mas utilizadas para el comienzo son la 255.255.128.0 y 255.255.255.252
+
+3. La capa de transporte.
+
+4. Seria adecuado un servicion orientado a la conexion, donde se priorize la conexion preliminar
+   y asi se logre aumentar la velocidad, con un minimo retardo.
+
+5. Esta capa es la de Aplicacion, pues es donde se definen rigurosamente estos protocolos 
+   a utilizar para el intercambio de datos.
+

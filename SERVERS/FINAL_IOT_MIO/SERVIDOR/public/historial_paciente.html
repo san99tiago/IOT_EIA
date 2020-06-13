@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO, FINAL IOT HISTORIAL PACIENTE -->
+<!-- CODIGO HTML PARA HISTORIAL DE UN PACIENTE-->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+        <title>HISTORIAL PACIENTE</title>
+    </head>
+
+
+    <body onload="mostrar_tabla_datos()" >
+
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="container-fluid animated  bounceInLeft">HISTORIAL PACIENTE</h1>
+    
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid">
+            <!-- SECCION FILA : archivo principal del login-->
+            <div class ="row animated  flipInX agregar-delay-2">
+                <h3>En esta sección, se encuentran los datos del paciente que quiso buscar.</h3>
+            </div>  
+        </div>
+        
+        <!-- Agregamos linea de separacion entre estas dos secciones -->
+        <hr class="col-12 no-margin animated bounceInDown agregar-delay-1">
+
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            
+            <!-- Utilizaremos id de login_button para procesar esto en JS -->
+            <button id="volver" style="position:relative; top:10px;" >Volver a HOME</button>
+
+        </div>
+        
+        <br>
+
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <div class="row">
+                <div class="col-12 ">
+                    A continuación, puede observar los datos de su paciente buscado:
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        
+
+
+
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            <table id="tabla_datos_dinamica">
+                <thead>                    
+                    <tr>
+                        <th>NOMBRE</th>
+                        <th>NIVEL MEDICINA</th>
+                        <th>NIVEL OXIGENO</th>
+                        <th>TEMPERATURA</th>
+                        <th>ESTADO</th>
+                    </tr>
+                </thead>
+                <!-- NOTA: <tbody> nos sirve para aprovecharnos de JQUERY y llenar tabla (ver "admin.js" para ver proceso) -->
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+        <!-- Archivo para correcta conexion con JS y procesar login -->
+        <script src="./js/historial_paciente.js"></script>
+
+        <!-- Jquery plugins -->
+        <script src="./jquery/jquery.min.js"></script>
+        <script src="./jquery-easing/jquery.easing.min.js"></script>
+
+
+        <!-- Jquery plugins for cool alerts -->
+        <link href="./jquery/jquery.alerts.css" rel="stylesheet" type="text/css" />  
+        <script src="./jquery/jquery.alerts.js"></script>
+
+
+
+    </body>
+</html>

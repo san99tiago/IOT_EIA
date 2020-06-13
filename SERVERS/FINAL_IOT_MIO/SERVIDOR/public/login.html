@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- SANTIAGO GARCIA ARANGO-->
+<!-- FINAL IOT -->
+<!-- CODIGO HTML PARA  REALIZAR EL LOGIN Y CONECTARLO CON SERVIDOR -->
+<html>
+    <head>
+        <!--De esta manera agregamos codificacion para utilizar caracteres latinos (y de español)-->
+        <meta charset="UTF-8">
+        
+        <!-- Esta linea siguiente indica capacidad de adaptarse al tamanno del viewport del equipo -->
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        
+        <!-- Ahora agregamos estilos a traves de Bootstrap (facilita desarrollo) -->
+        <!-- LINK PAGINA BOOTSTRAP:  https://www.bootstrapcdn.com/ -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Agregamos fuente bacana para el titulo del h1 principal -->
+        <!-- Recordar que esto lo hacemos MUY facil con google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+        <!-- Agregamos plantilla para conectar los estilos sencillos desde CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Agregamos libreria "animate.css" gratuita, se puede encontrar en google o github -->
+        <!-- (en este caso la tengo guardada directamente en carpeta "css" en mismo directorio actual) -->
+        <link rel="stylesheet" href="css/animate.css">
+
+        <title>LOGIN FINAL IOT</title>
+    </head>
+
+
+    <!-- Al cargar pagina, llamamos funcion para obligar el cursor a estar en primer input del usuario -->
+    <body  onload="poner_cursor_input_usuario()">
+
+        <!-- Clase "animated" implica que agregamos animacion... "pulse es el tipo de animacion" -->
+        <h1 class="container-fluid animated  bounceInLeft">LOGIN FINAL IOT</h1>
+    
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid">
+            <!-- SECCION FILA : archivo principal del login-->
+            <div class ="row animated  flipInX agregar-delay-2">
+                <h3>Bienvenido a esta aplicacion de COVID-19</h3>
+            </div>  
+        </div>
+        
+        <!-- Agregamos linea de separacion entre estas dos secciones -->
+        <hr class="no-margin animated bounceInDown agregar-delay-1">
+        <br>
+
+
+        <!-- SECCION INGRESO DE DATOS POR PARTE DEL USUARIO -->
+        <!-- NOTA: el "container-fluid" es indispensable para que se adapte correctamente al total de espacio -->
+        <div class="container-fluid   animated flipInX agregar-delay-2">
+            
+            <div class="row">
+
+                <div class="col-6">
+
+                    <!--Creamos las respectivas separaciones de las columnas para dividir simetricamente espacio  -->
+                    <!-- Agregamos ingreso de datos del usuario con ayuda de "inputs" -->
+                    <div class="col-12 ">
+                        Esta es una aplicacion completa de IOT, donde se hace el correcto control, monitoreo y actualizacion 
+                        de los datos de los pacientes que tienen COVID19.
+                        <br><br>
+                        A continuacion, ingrese los datos de usuario, para acceder a las bases de datos y nuestras funcionalidades.
+                        <br><br>
+                        Usuario:
+                        <input class="mover-derecha-input" type="text" id="login_usuario" placeholder="Usuario">
+                        <br>
+                        <br>
+                        Password:
+                        <input type="password" id="login_password" placeholder="Password">
+                    </div>
+        
+                    <br>
+        
+                    <!-- Boton para hacer el login -->
+                    <div class="col-12">
+                        <!-- Utilizaremos id de login_button para procesar esto en JS -->
+                        <button id="login_button" >Entrar</button>
+                        <!-- Boton para registrar a nuevos usuarios y redirigirnos a "new_user" -->
+                        <button id="crear_new_user"  >Registrate</button>
+                    </div>
+
+                </div>
+
+                <div class="col-3">
+                    <img src="imgs/FOTO_COVID.jpg" class="animated rotateIn agregar-delay-1">
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+        <!-- Archivo para correcta conexion con JS y procesar login -->
+        <script src="./js/login.js"></script>
+        
+        <!-- Jquery plugins -->
+        <script src="./jquery/jquery.min.js"></script>
+        <script src="./jquery-easing/jquery.easing.min.js"></script>
+
+
+        <!-- Jquery plugins for cool alerts -->
+        <link href="./jquery/jquery.alerts.css" rel="stylesheet" type="text/css" />  
+        <script src="./jquery/jquery.alerts.js"></script>
+
+
+
+    </body>
+</html>
