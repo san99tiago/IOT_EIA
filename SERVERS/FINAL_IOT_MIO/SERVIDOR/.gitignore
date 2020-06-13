@@ -1,0 +1,2 @@
+#Extra gitignore for including package-lock.json in current directory
+!package-lock.json
