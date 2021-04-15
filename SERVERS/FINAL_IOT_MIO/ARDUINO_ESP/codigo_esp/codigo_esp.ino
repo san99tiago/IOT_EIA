@@ -7,9 +7,9 @@
 #include <ESP8266HTTPClient.h>
 
 //Variables basicas para funcionamiento correcto en Red Wifi
-const char* ssid = "GARCIAWIFI"; 
-const char* password = "1037670792"; 
-String host = "http://192.168.1.15";
+const char* ssid = "WIFI-NAME"; 
+const char* password = "WIFI-PASS"; 
+String host = "http://<YOUR-IP>";
 String port = ":3000";
 
 
